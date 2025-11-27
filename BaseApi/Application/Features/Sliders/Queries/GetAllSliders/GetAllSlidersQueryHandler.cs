@@ -15,32 +15,17 @@ namespace BaseApi.Application.Features.Sliders.Queries.GetAllSliders
 
         public async Task<IEnumerable<SliderDto>> Handle(GetAllSlidersQuery request, CancellationToken cancellationToken)
         {
-            IEnumerable<Domain.Entities.Slider> sliders;
+            var slidersResult = await GetSlidersAsync(request);
 
-            if (!string.IsNullOrEmpty(request.TargetLocation))
+            // If the result failed, return empty collection
+            if (!slidersResult.Success)
             {
-                if (request.IsActive == true)
-                {
-                    sliders = await _sliderRepository.GetActiveSlidersByLocationAsync(request.TargetLocation);
-                }
-                else
-                {
-                    sliders = await _sliderRepository.GetSlidersByLocationAsync(request.TargetLocation);
-                }
-            }
-            else if (request.SliderType.HasValue && request.IsActive == true)
-            {
-                sliders = await _sliderRepository.GetActiveSlidersByTypeAsync(request.SliderType.Value);
-            }
-            else if (request.SliderType.HasValue)
-            {
-                sliders = await _sliderRepository.GetBySliderTypeAsync(request.SliderType.Value);
-            }
-            else
-            {
-                sliders = await _sliderRepository.GetAllAsync();
+                return Enumerable.Empty<SliderDto>();
             }
 
+            var sliders = slidersResult.Data ?? Enumerable.Empty<Domain.Entities.Slider>();
+
+            // Apply additional filtering if needed
             if (request.IsActive.HasValue && string.IsNullOrEmpty(request.TargetLocation))
             {
                 sliders = sliders.Where(s => s.IsActive == request.IsActive.Value);
@@ -72,6 +57,33 @@ namespace BaseApi.Application.Features.Sliders.Queries.GetAllSliders
                 UpdatedAt = slider.UpdatedAt,
                 CreatorName = slider.Creator != null ? $"{slider.Creator.FirstName} {slider.Creator.LastName}" : null
             });
+        }
+
+        private async Task<BaseApi.Application.Common.ApiResult<IEnumerable<Domain.Entities.Slider>>> GetSlidersAsync(GetAllSlidersQuery request)
+        {
+            if (!string.IsNullOrEmpty(request.TargetLocation))
+            {
+                if (request.IsActive == true)
+                {
+                    return await _sliderRepository.GetActiveSlidersByLocationAsync(request.TargetLocation);
+                }
+                else
+                {
+                    return await _sliderRepository.GetSlidersByLocationAsync(request.TargetLocation);
+                }
+            }
+            else if (request.SliderType.HasValue && request.IsActive == true)
+            {
+                return await _sliderRepository.GetActiveSlidersByTypeAsync(request.SliderType.Value);
+            }
+            else if (request.SliderType.HasValue)
+            {
+                return await _sliderRepository.GetBySliderTypeAsync(request.SliderType.Value);
+            }
+            else
+            {
+                return await _sliderRepository.GetAllAsync();
+            }
         }
     }
 }

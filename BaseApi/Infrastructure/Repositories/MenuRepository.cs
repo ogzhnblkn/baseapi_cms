@@ -1,3 +1,4 @@
+using BaseApi.Application.Common;
 using BaseApi.Domain.Entities;
 using BaseApi.Domain.Interfaces;
 using BaseApi.Infrastructure.Data;
@@ -14,119 +15,216 @@ namespace BaseApi.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Menu?> GetByIdAsync(int id)
+        public async Task<ApiResult<Menu?>> GetByIdAsync(int id)
         {
-            return await _context.Menus
-                .Include(m => m.Parent)
-                .Include(m => m.SubMenus.Where(s => s.IsActive))
-                .Include(m => m.Creator)
-                .FirstOrDefaultAsync(m => m.Id == id);
-        }
-
-        public async Task<Menu?> GetBySlugAsync(string slug)
-        {
-            return await _context.Menus
-                .Include(m => m.Parent)
-                .Include(m => m.SubMenus.Where(s => s.IsActive))
-                .FirstOrDefaultAsync(m => m.Slug.ToLower() == slug.ToLower());
-        }
-
-        public async Task<IEnumerable<Menu>> GetAllAsync()
-        {
-            return await _context.Menus
-                .Include(m => m.Parent)
-                .Include(m => m.Creator)
-                .OrderBy(m => m.MenuType)
-                .ThenBy(m => m.Order)
-                .ThenBy(m => m.Name)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Menu>> GetByMenuTypeAsync(MenuType menuType)
-        {
-            return await _context.Menus
-                .Include(m => m.SubMenus.Where(s => s.IsActive))
-                .Where(m => m.MenuType == menuType)
-                .OrderBy(m => m.Order)
-                .ThenBy(m => m.Name)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Menu>> GetActiveMenusByTypeAsync(MenuType menuType)
-        {
-            return await _context.Menus
-                .Include(m => m.SubMenus.Where(s => s.IsActive))
-                .Where(m => m.MenuType == menuType && m.IsActive)
-                .OrderBy(m => m.Order)
-                .ThenBy(m => m.Name)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Menu>> GetSubMenusAsync(int parentId)
-        {
-            return await _context.Menus
-                .Where(m => m.ParentId == parentId)
-                .OrderBy(m => m.Order)
-                .ThenBy(m => m.Name)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Menu>> GetRootMenusAsync(MenuType menuType)
-        {
-            return await _context.Menus
-                .Include(m => m.SubMenus.Where(s => s.IsActive))
-                .Where(m => m.MenuType == menuType && m.ParentId == null && m.IsActive)
-                .OrderBy(m => m.Order)
-                .ThenBy(m => m.Name)
-                .ToListAsync();
-        }
-
-        public async Task<Menu> CreateAsync(Menu menu)
-        {
-            // Auto-generate slug if not provided
-            if (string.IsNullOrEmpty(menu.Slug))
+            try
             {
-                menu.Slug = GenerateSlug(menu.Name);
+                var menu = await _context.Menus
+                    .Include(m => m.Parent)
+                    .Include(m => m.SubMenus.Where(s => s.IsActive))
+                    .Include(m => m.Creator)
+                    .FirstOrDefaultAsync(m => m.Id == id);
+
+                if (menu == null)
+                    return ApiResult<Menu?>.NotFoundResult(Messages.Menu.NotFound);
+
+                return ApiResult<Menu?>.SuccessResult(menu, Messages.Menu.Retrieved);
             }
-
-            // Ensure unique slug
-            var originalSlug = menu.Slug;
-            var counter = 1;
-            while (await ExistsAsync(menu.Slug))
+            catch (Exception ex)
             {
-                menu.Slug = $"{originalSlug}-{counter}";
-                counter++;
+                return ApiResult<Menu?>.FailureResult($"Error retrieving menu: {ex.Message}");
             }
-
-            // Set order if not provided
-            if (menu.Order == 0)
-            {
-                menu.Order = await GetMaxOrderAsync(menu.MenuType, menu.ParentId) + 1;
-            }
-
-            _context.Menus.Add(menu);
-            await _context.SaveChangesAsync();
-            return menu;
         }
 
-        public async Task<Menu> UpdateAsync(Menu menu)
+        public async Task<ApiResult<Menu?>> GetBySlugAsync(string slug)
         {
-            menu.UpdatedAt = DateTime.UtcNow;
-            _context.Menus.Update(menu);
-            await _context.SaveChangesAsync();
-            return menu;
+            try
+            {
+                var menu = await _context.Menus
+                    .Include(m => m.Parent)
+                    .Include(m => m.SubMenus.Where(s => s.IsActive))
+                    .FirstOrDefaultAsync(m => m.Slug.ToLower() == slug.ToLower());
+
+                if (menu == null)
+                    return ApiResult<Menu?>.NotFoundResult(Messages.Menu.NotFound);
+
+                return ApiResult<Menu?>.SuccessResult(menu, Messages.Menu.Retrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<Menu?>.FailureResult($"Error retrieving menu by slug: {ex.Message}");
+            }
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task<ApiResult<IEnumerable<Menu>>> GetAllAsync()
         {
-            var menu = await GetByIdAsync(id);
-            if (menu != null)
+            try
             {
-                // Also delete sub-menus
-                var subMenus = await GetSubMenusAsync(id);
-                _context.Menus.RemoveRange(subMenus);
+                var menus = await _context.Menus
+                    .Include(m => m.Parent)
+                    .Include(m => m.Creator)
+                    .OrderBy(m => m.MenuType)
+                    .ThenBy(m => m.Order)
+                    .ThenBy(m => m.Name)
+                    .ToListAsync();
+
+                return ApiResult<IEnumerable<Menu>>.SuccessResult(menus, Messages.Menu.ListRetrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<IEnumerable<Menu>>.FailureResult($"Error retrieving menus: {ex.Message}");
+            }
+        }
+
+        public async Task<ApiResult<IEnumerable<Menu>>> GetByMenuTypeAsync(MenuType menuType)
+        {
+            try
+            {
+                var menus = await _context.Menus
+                    .Include(m => m.SubMenus.Where(s => s.IsActive))
+                    .Where(m => m.MenuType == menuType)
+                    .OrderBy(m => m.Order)
+                    .ThenBy(m => m.Name)
+                    .ToListAsync();
+
+                return ApiResult<IEnumerable<Menu>>.SuccessResult(menus, Messages.Menu.ListRetrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<IEnumerable<Menu>>.FailureResult($"Error retrieving menus by type: {ex.Message}");
+            }
+        }
+
+        public async Task<ApiResult<IEnumerable<Menu>>> GetActiveMenusByTypeAsync(MenuType menuType)
+        {
+            try
+            {
+                var menus = await _context.Menus
+                    .Include(m => m.SubMenus.Where(s => s.IsActive))
+                    .Where(m => m.MenuType == menuType && m.IsActive)
+                    .OrderBy(m => m.Order)
+                    .ThenBy(m => m.Name)
+                    .ToListAsync();
+
+                return ApiResult<IEnumerable<Menu>>.SuccessResult(menus, Messages.Menu.ListRetrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<IEnumerable<Menu>>.FailureResult($"Error retrieving active menus: {ex.Message}");
+            }
+        }
+
+        public async Task<ApiResult<IEnumerable<Menu>>> GetSubMenusAsync(int parentId)
+        {
+            try
+            {
+                var menus = await _context.Menus
+                    .Where(m => m.ParentId == parentId)
+                    .OrderBy(m => m.Order)
+                    .ThenBy(m => m.Name)
+                    .ToListAsync();
+
+                return ApiResult<IEnumerable<Menu>>.SuccessResult(menus, Messages.Menu.ListRetrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<IEnumerable<Menu>>.FailureResult($"Error retrieving sub menus: {ex.Message}");
+            }
+        }
+
+        public async Task<ApiResult<IEnumerable<Menu>>> GetRootMenusAsync(MenuType menuType)
+        {
+            try
+            {
+                var menus = await _context.Menus
+                    .Include(m => m.SubMenus.Where(s => s.IsActive))
+                    .Where(m => m.MenuType == menuType && m.ParentId == null && m.IsActive)
+                    .OrderBy(m => m.Order)
+                    .ThenBy(m => m.Name)
+                    .ToListAsync();
+
+                return ApiResult<IEnumerable<Menu>>.SuccessResult(menus, Messages.Menu.ListRetrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<IEnumerable<Menu>>.FailureResult($"Error retrieving root menus: {ex.Message}");
+            }
+        }
+
+        public async Task<ApiResult<Menu>> CreateAsync(Menu menu)
+        {
+            try
+            {
+                // Auto-generate slug if not provided
+                if (string.IsNullOrEmpty(menu.Slug))
+                {
+                    menu.Slug = GenerateSlug(menu.Name);
+                }
+
+                // Ensure unique slug
+                var originalSlug = menu.Slug;
+                var counter = 1;
+                while (await ExistsAsync(menu.Slug))
+                {
+                    menu.Slug = $"{originalSlug}-{counter}";
+                    counter++;
+                }
+
+                // Set order if not provided
+                if (menu.Order == 0)
+                {
+                    menu.Order = await GetMaxOrderAsync(menu.MenuType, menu.ParentId) + 1;
+                }
+
+                _context.Menus.Add(menu);
+                await _context.SaveChangesAsync();
+
+                return ApiResult<Menu>.SuccessResult(menu, Messages.Menu.Created);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<Menu>.FailureResult($"Error creating menu: {ex.Message}");
+            }
+        }
+
+        public async Task<ApiResult<Menu>> UpdateAsync(Menu menu)
+        {
+            try
+            {
+                menu.UpdatedAt = DateTime.UtcNow;
+                _context.Menus.Update(menu);
+                await _context.SaveChangesAsync();
+
+                return ApiResult<Menu>.SuccessResult(menu, Messages.Menu.Updated);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<Menu>.FailureResult($"Error updating menu: {ex.Message}");
+            }
+        }
+
+        public async Task<ApiResult> DeleteAsync(int id)
+        {
+            try
+            {
+                var menu = await _context.Menus.Include(m => m.SubMenus).FirstOrDefaultAsync(m => m.Id == id);
+                if (menu == null)
+                    return ApiResult.FailureResult(Messages.Menu.NotFound);
+
+                // Check if menu has children
+                if (menu.SubMenus.Any())
+                {
+                    return ApiResult.FailureResult(Messages.Menu.HasChildren);
+                }
+
                 _context.Menus.Remove(menu);
                 await _context.SaveChangesAsync();
+
+                return ApiResult.SuccessResult(Messages.Menu.Deleted);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult.FailureResult($"Error deleting menu: {ex.Message}");
             }
         }
 
@@ -161,18 +259,27 @@ namespace BaseApi.Infrastructure.Repositories
             return await query.MaxAsync(m => m.Order);
         }
 
-        public async Task ReorderMenusAsync(IEnumerable<(int Id, int Order)> menuOrders)
+        public async Task<ApiResult> ReorderMenusAsync(IEnumerable<(int Id, int Order)> menuOrders)
         {
-            foreach (var (id, order) in menuOrders)
+            try
             {
-                var menu = await _context.Menus.FindAsync(id);
-                if (menu != null)
+                foreach (var (id, order) in menuOrders)
                 {
-                    menu.Order = order;
-                    menu.UpdatedAt = DateTime.UtcNow;
+                    var menu = await _context.Menus.FindAsync(id);
+                    if (menu != null)
+                    {
+                        menu.Order = order;
+                        menu.UpdatedAt = DateTime.UtcNow;
+                    }
                 }
+                await _context.SaveChangesAsync();
+
+                return ApiResult.SuccessResult("Menus reordered successfully");
             }
-            await _context.SaveChangesAsync();
+            catch (Exception ex)
+            {
+                return ApiResult.FailureResult($"Error reordering menus: {ex.Message}");
+            }
         }
 
         private static string GenerateSlug(string name)

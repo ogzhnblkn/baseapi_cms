@@ -15,10 +15,12 @@ namespace BaseApi.Application.Features.Users.Queries.GetUser
 
         public async Task<UserDto?> Handle(GetUserQuery request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetByIdAsync(request.Id);
+            var userResult = await _userRepository.GetByIdAsync(request.Id);
 
-            if (user == null)
+            if (!userResult.Success || userResult.Data == null)
                 return null;
+
+            var user = userResult.Data;
 
             return new UserDto
             {

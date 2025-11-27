@@ -21,21 +21,21 @@ namespace BaseApi.Application.Features.Auth.Commands.Login
         {
             var user = await _userRepository.GetByUsernameAsync(request.Username);
 
-            if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+            if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.Data.PasswordHash))
             {
                 throw new UnauthorizedAccessException("Invalid username or password");
             }
 
-            if (!user.IsActive)
+            if (!user.Data.IsActive)
             {
                 throw new UnauthorizedAccessException("User account is deactivated");
             }
 
             // Update last login
-            user.LastLoginAt = DateTime.UtcNow;
-            await _userRepository.UpdateAsync(user);
+            user.Data.LastLoginAt = DateTime.UtcNow;
+            await _userRepository.UpdateAsync(user.Data);
 
-            var token = _jwtService.GenerateToken(user);
+            var token = _jwtService.GenerateToken(user.Data);
             var refreshToken = _jwtService.GenerateRefreshToken();
 
             return new AuthResponseDto
@@ -45,14 +45,14 @@ namespace BaseApi.Application.Features.Auth.Commands.Login
                 ExpiresAt = DateTime.UtcNow.AddHours(24),
                 User = new UserDto
                 {
-                    Id = user.Id,
-                    Username = user.Username,
-                    Email = user.Email,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    IsActive = user.IsActive,
-                    CreatedAt = user.CreatedAt,
-                    LastLoginAt = user.LastLoginAt
+                    Id = user.Data.Id,
+                    Username = user.Data.Username,
+                    Email = user.Data.Email,
+                    FirstName = user.Data.FirstName,
+                    LastName = user.Data.LastName,
+                    IsActive = user.Data.IsActive,
+                    CreatedAt = user.Data.CreatedAt,
+                    LastLoginAt = user.Data.LastLoginAt
                 }
             };
         }

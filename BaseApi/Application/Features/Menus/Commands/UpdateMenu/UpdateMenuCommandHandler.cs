@@ -16,9 +16,11 @@ namespace BaseApi.Application.Features.Menus.Commands.UpdateMenu
 
         public async Task<MenuDto> Handle(UpdateMenuCommand request, CancellationToken cancellationToken)
         {
-            var menu = await _menuRepository.GetByIdAsync(request.Id);
-            if (menu == null)
+            var menuResult = await _menuRepository.GetByIdAsync(request.Id);
+            if (!menuResult.Success || menuResult.Data == null)
                 throw new NotFoundException($"Menu with ID {request.Id} not found");
+
+            var menu = menuResult.Data;
 
             // Validate parent menu if ParentId is provided
             if (request.ParentId.HasValue)
@@ -26,17 +28,22 @@ namespace BaseApi.Application.Features.Menus.Commands.UpdateMenu
                 if (request.ParentId.Value == request.Id)
                     throw new InvalidOperationException("Menu cannot be its own parent");
 
-                var parent = await _menuRepository.GetByIdAsync(request.ParentId.Value);
-                if (parent == null)
+                var parentResult = await _menuRepository.GetByIdAsync(request.ParentId.Value);
+                if (!parentResult.Success || parentResult.Data == null)
                     throw new InvalidOperationException("Parent menu not found");
 
+                var parent = parentResult.Data;
                 if (parent.ParentId != null)
                     throw new InvalidOperationException("Cannot move menu under a sub-menu. Maximum 2 levels allowed.");
 
                 // Check if trying to make a parent menu a child of its own child
-                var subMenus = await _menuRepository.GetSubMenusAsync(request.Id);
-                if (subMenus.Any(s => s.Id == request.ParentId.Value))
-                    throw new InvalidOperationException("Cannot move menu under its own sub-menu");
+                var subMenusResult = await _menuRepository.GetSubMenusAsync(request.Id);
+                if (subMenusResult.Success && subMenusResult.Data != null)
+                {
+                    var subMenus = subMenusResult.Data;
+                    if (subMenus.Any(s => s.Id == request.ParentId.Value))
+                        throw new InvalidOperationException("Cannot move menu under its own sub-menu");
+                }
             }
 
             // Check slug uniqueness
@@ -61,7 +68,11 @@ namespace BaseApi.Application.Features.Menus.Commands.UpdateMenu
             menu.ShowForGuests = request.ShowForGuests;
             menu.ShowForAuthenticated = request.ShowForAuthenticated;
 
-            var updatedMenu = await _menuRepository.UpdateAsync(menu);
+            var updateResult = await _menuRepository.UpdateAsync(menu);
+            if (!updateResult.Success)
+                throw new InvalidOperationException(updateResult.Message);
+
+            var updatedMenu = updateResult.Data!;
 
             return new MenuDto
             {

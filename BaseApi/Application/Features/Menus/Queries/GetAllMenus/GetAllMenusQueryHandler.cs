@@ -19,15 +19,15 @@ namespace BaseApi.Application.Features.Menus.Queries.GetAllMenus
 
             if (request.MenuType.HasValue && request.IsActive == true)
             {
-                menus = await _menuRepository.GetActiveMenusByTypeAsync(request.MenuType.Value);
+                menus = _menuRepository.GetActiveMenusByTypeAsync(request.MenuType.Value).Result?.Data;
             }
             else if (request.MenuType.HasValue)
             {
-                menus = await _menuRepository.GetByMenuTypeAsync(request.MenuType.Value);
+                menus = _menuRepository.GetByMenuTypeAsync(request.MenuType.Value).Result?.Data;
             }
             else
             {
-                menus = await _menuRepository.GetAllAsync();
+                menus = _menuRepository.GetAllAsync().Result?.Data;
             }
 
             if (request.IsActive.HasValue)

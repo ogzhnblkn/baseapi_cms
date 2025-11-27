@@ -19,11 +19,37 @@ namespace BaseApi.Application.Features.Menus.Queries.GetMenuTree
 
             if (request.ActiveOnly)
             {
-                rootMenus = await _menuRepository.GetRootMenusAsync(request.MenuType);
+                var rootMenusResult = await _menuRepository.GetRootMenusAsync(request.MenuType);
+
+                // If the result failed, return empty tree
+                if (!rootMenusResult.Success)
+                {
+                    return new MenuTreeDto
+                    {
+                        MenuType = request.MenuType,
+                        MenuTypeName = request.MenuType.ToString(),
+                        Menus = new List<MenuDto>()
+                    };
+                }
+
+                rootMenus = rootMenusResult.Data ?? Enumerable.Empty<Domain.Entities.Menu>();
             }
             else
             {
-                var allMenus = await _menuRepository.GetByMenuTypeAsync(request.MenuType);
+                var allMenusResult = await _menuRepository.GetByMenuTypeAsync(request.MenuType);
+
+                // If the result failed, return empty tree
+                if (!allMenusResult.Success)
+                {
+                    return new MenuTreeDto
+                    {
+                        MenuType = request.MenuType,
+                        MenuTypeName = request.MenuType.ToString(),
+                        Menus = new List<MenuDto>()
+                    };
+                }
+
+                var allMenus = allMenusResult.Data ?? Enumerable.Empty<Domain.Entities.Menu>();
                 rootMenus = allMenus.Where(m => m.ParentId == null);
             }
 

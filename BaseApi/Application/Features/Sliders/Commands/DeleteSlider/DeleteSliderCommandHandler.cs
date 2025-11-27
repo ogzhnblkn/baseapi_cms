@@ -17,9 +17,12 @@ namespace BaseApi.Application.Features.Sliders.Commands.DeleteSlider
 
         public async Task<bool> Handle(DeleteSliderCommand request, CancellationToken cancellationToken)
         {
-            var slider = await _sliderRepository.GetByIdAsync(request.Id);
-            if (slider == null)
+            var sliderResult = await _sliderRepository.GetByIdAsync(request.Id);
+
+            if (!sliderResult.Success || sliderResult.Data == null)
                 return false;
+
+            var slider = sliderResult.Data;
 
             // Delete associated files
             if (!string.IsNullOrEmpty(slider.ImageUrl))
@@ -32,8 +35,8 @@ namespace BaseApi.Application.Features.Sliders.Commands.DeleteSlider
                 await _fileUploadService.DeleteFileAsync(slider.MobileImageUrl);
             }
 
-            await _sliderRepository.DeleteAsync(request.Id);
-            return true;
+            var deleteResult = await _sliderRepository.DeleteAsync(request.Id);
+            return deleteResult.Success;
         }
     }
 }

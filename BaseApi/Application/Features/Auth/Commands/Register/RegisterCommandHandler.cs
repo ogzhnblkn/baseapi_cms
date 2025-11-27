@@ -39,7 +39,7 @@ namespace BaseApi.Application.Features.Auth.Commands.Register
 
             var createdUser = await _userRepository.CreateAsync(user);
 
-            var token = _jwtService.GenerateToken(createdUser);
+            var token = _jwtService.GenerateToken(createdUser.Data);
             var refreshToken = _jwtService.GenerateRefreshToken();
 
             return new AuthResponseDto
@@ -49,13 +49,13 @@ namespace BaseApi.Application.Features.Auth.Commands.Register
                 ExpiresAt = DateTime.UtcNow.AddHours(24),
                 User = new UserDto
                 {
-                    Id = createdUser.Id,
-                    Username = createdUser.Username,
-                    Email = createdUser.Email,
-                    FirstName = createdUser.FirstName,
-                    LastName = createdUser.LastName,
-                    IsActive = createdUser.IsActive,
-                    CreatedAt = createdUser.CreatedAt
+                    Id = createdUser.Data.Id,
+                    Username = createdUser.Data.Username,
+                    Email = createdUser.Data.Email,
+                    FirstName = createdUser.Data.FirstName,
+                    LastName = createdUser.Data.LastName,
+                    IsActive = createdUser.Data.IsActive,
+                    CreatedAt = createdUser.Data.CreatedAt
                 }
             };
         }

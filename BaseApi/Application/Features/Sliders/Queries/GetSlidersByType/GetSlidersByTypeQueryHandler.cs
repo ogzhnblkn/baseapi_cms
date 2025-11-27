@@ -15,16 +15,16 @@ namespace BaseApi.Application.Features.Sliders.Queries.GetSlidersByType
 
         public async Task<IEnumerable<SliderDto>> Handle(GetSlidersByTypeQuery request, CancellationToken cancellationToken)
         {
-            IEnumerable<Domain.Entities.Slider> sliders;
+            var slidersResult = request.ActiveOnly
+                ? await _sliderRepository.GetActiveSlidersByTypeAsync(request.SliderType)
+                : await _sliderRepository.GetBySliderTypeAsync(request.SliderType);
 
-            if (request.ActiveOnly)
+            if (!slidersResult.Success)
             {
-                sliders = await _sliderRepository.GetActiveSlidersByTypeAsync(request.SliderType);
+                return Enumerable.Empty<SliderDto>();
             }
-            else
-            {
-                sliders = await _sliderRepository.GetBySliderTypeAsync(request.SliderType);
-            }
+
+            var sliders = slidersResult.Data ?? Enumerable.Empty<Domain.Entities.Slider>();
 
             return sliders.Select(slider => new SliderDto
             {

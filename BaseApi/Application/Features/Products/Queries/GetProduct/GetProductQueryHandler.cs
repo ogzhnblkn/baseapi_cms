@@ -18,19 +18,14 @@ namespace BaseApi.Application.Features.Products.Queries.GetProduct
 
         public async Task<ProductDto?> Handle(GetProductQuery request, CancellationToken cancellationToken)
         {
-            Domain.Entities.Product? product = null;
+            var productResult = request.Id.HasValue
+                ? await _productRepository.GetByIdAsync(request.Id.Value)
+                : await _productRepository.GetBySlugAsync(request.Slug ?? string.Empty);
 
-            if (request.Id.HasValue)
-            {
-                product = await _productRepository.GetByIdAsync(request.Id.Value);
-            }
-            else if (!string.IsNullOrEmpty(request.Slug))
-            {
-                product = await _productRepository.GetBySlugAsync(request.Slug);
-            }
-
-            if (product == null)
+            if (!productResult.Success || productResult.Data == null)
                 return null;
+
+            var product = productResult.Data;
 
             // Increment view count if requested
             if (request.IncrementViewCount)

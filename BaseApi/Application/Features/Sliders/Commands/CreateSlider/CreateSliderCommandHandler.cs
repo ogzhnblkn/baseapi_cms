@@ -43,7 +43,11 @@ namespace BaseApi.Application.Features.Sliders.Commands.CreateSlider
                 CreatedAt = DateTime.UtcNow
             };
 
-            var createdSlider = await _sliderRepository.CreateAsync(slider);
+            var createResult = await _sliderRepository.CreateAsync(slider);
+            if (!createResult.Success)
+                throw new InvalidOperationException(createResult.Message);
+
+            var createdSlider = createResult.Data!;
 
             return new SliderDto
             {

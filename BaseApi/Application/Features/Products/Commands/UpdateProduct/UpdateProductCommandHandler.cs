@@ -30,82 +30,82 @@ namespace BaseApi.Application.Features.Products.Commands.UpdateProduct
             }
 
             // Check slug uniqueness
-            if (!string.IsNullOrEmpty(request.Slug) && request.Slug != product.Slug)
+            if (!string.IsNullOrEmpty(request.Slug) && request.Slug != product.Data.Slug)
             {
                 if (await _productRepository.ExistsAsync(request.Slug, request.Id))
                     throw new InvalidOperationException("Slug already exists");
             }
 
             // Check product code uniqueness
-            if (!string.IsNullOrEmpty(request.ProductCode) && request.ProductCode != product.ProductCode)
+            if (!string.IsNullOrEmpty(request.ProductCode) && request.ProductCode != product.Data.ProductCode)
             {
                 var existingProduct = await _productRepository.GetAllAsync();
-                if (existingProduct.Any(p => p.ProductCode == request.ProductCode && p.Id != request.Id))
+                if (existingProduct.Data.Any(p => p.ProductCode == request.ProductCode && p.Id != request.Id))
                     throw new InvalidOperationException("Product code already exists");
             }
 
-            product.Name = request.Name;
-            product.Slug = request.Slug ?? product.Slug;
-            product.ShortDescription = request.ShortDescription;
-            product.Description = request.Description;
-            product.ProductCode = request.ProductCode;
-            product.Category = request.Category;
-            product.MainImageUrl = request.MainImageUrl;
-            product.ImageUrls = request.ImageUrls != null ? JsonSerializer.Serialize(request.ImageUrls) : null;
-            product.Price = request.Price;
-            product.DiscountPrice = request.DiscountPrice;
-            product.Currency = request.Currency;
-            product.ShowPrice = request.ShowPrice;
-            product.Dimensions = request.Dimensions;
-            product.Material = request.Material;
-            product.Colors = request.Colors;
-            product.Features = request.Features != null ? JsonSerializer.Serialize(request.Features) : null;
-            product.MetaTitle = request.MetaTitle;
-            product.MetaDescription = request.MetaDescription;
-            product.Keywords = request.Keywords;
-            product.Status = request.Status;
-            product.IsFeatured = request.IsFeatured;
-            product.IsNewProduct = request.IsNewProduct;
-            product.Order = request.Order;
+            product.Data.Name = request.Name;
+            product.Data.Slug = request.Slug ?? product.Data.Slug;
+            product.Data.ShortDescription = request.ShortDescription;
+            product.Data.Description = request.Description;
+            product.Data.ProductCode = request.ProductCode;
+            product.Data.Category = request.Category;
+            product.Data.MainImageUrl = request.MainImageUrl;
+            product.Data.ImageUrls = request.ImageUrls != null ? JsonSerializer.Serialize(request.ImageUrls) : null;
+            product.Data.Price = request.Price;
+            product.Data.DiscountPrice = request.DiscountPrice;
+            product.Data.Currency = request.Currency;
+            product.Data.ShowPrice = request.ShowPrice;
+            product.Data.Dimensions = request.Dimensions;
+            product.Data.Material = request.Material;
+            product.Data.Colors = request.Colors;
+            product.Data.Features = request.Features != null ? JsonSerializer.Serialize(request.Features) : null;
+            product.Data.MetaTitle = request.MetaTitle;
+            product.Data.MetaDescription = request.MetaDescription;
+            product.Data.Keywords = request.Keywords;
+            product.Data.Status = request.Status;
+            product.Data.IsFeatured = request.IsFeatured;
+            product.Data.IsNewProduct = request.IsNewProduct;
+            product.Data.Order = request.Order;
 
-            var updatedProduct = await _productRepository.UpdateAsync(product);
+            var updatedProduct = await _productRepository.UpdateAsync(product.Data);
 
             return new ProductDto
             {
-                Id = updatedProduct.Id,
-                Name = updatedProduct.Name,
-                Slug = updatedProduct.Slug,
-                ShortDescription = updatedProduct.ShortDescription,
-                Description = updatedProduct.Description,
-                ProductCode = updatedProduct.ProductCode,
-                Category = updatedProduct.Category,
-                CategoryName = GetCategoryDisplayName(updatedProduct.Category),
-                MainImageUrl = updatedProduct.MainImageUrl,
-                ImageUrls = !string.IsNullOrEmpty(updatedProduct.ImageUrls)
-                    ? JsonSerializer.Deserialize<List<string>>(updatedProduct.ImageUrls) ?? new List<string>()
+                Id = updatedProduct.Data.Id,
+                Name = updatedProduct.Data.Name,
+                Slug = updatedProduct.Data.Slug,
+                ShortDescription = updatedProduct.Data.ShortDescription,
+                Description = updatedProduct.Data.Description,
+                ProductCode = updatedProduct.Data.ProductCode,
+                Category = updatedProduct.Data.Category,
+                CategoryName = GetCategoryDisplayName(updatedProduct.Data.Category),
+                MainImageUrl = updatedProduct.Data.MainImageUrl,
+                ImageUrls = !string.IsNullOrEmpty(updatedProduct.Data.ImageUrls)
+                    ? JsonSerializer.Deserialize<List<string>>(updatedProduct.Data.ImageUrls) ?? new List<string>()
                     : new List<string>(),
-                Price = updatedProduct.Price,
-                DiscountPrice = updatedProduct.DiscountPrice,
-                Currency = updatedProduct.Currency,
-                ShowPrice = updatedProduct.ShowPrice,
-                Dimensions = updatedProduct.Dimensions,
-                Material = updatedProduct.Material,
-                Colors = updatedProduct.Colors,
-                Features = !string.IsNullOrEmpty(updatedProduct.Features)
-                    ? JsonSerializer.Deserialize<Dictionary<string, object>>(updatedProduct.Features)
+                Price = updatedProduct.Data.Price,
+                DiscountPrice = updatedProduct.Data.DiscountPrice,
+                Currency = updatedProduct.Data.Currency,
+                ShowPrice = updatedProduct.Data.ShowPrice,
+                Dimensions = updatedProduct.Data.Dimensions,
+                Material = updatedProduct.Data.Material,
+                Colors = updatedProduct.Data.Colors,
+                Features = !string.IsNullOrEmpty(updatedProduct.Data.Features)
+                    ? JsonSerializer.Deserialize<Dictionary<string, object>>(updatedProduct.Data.Features)
                     : null,
-                MetaTitle = updatedProduct.MetaTitle,
-                MetaDescription = updatedProduct.MetaDescription,
-                Keywords = updatedProduct.Keywords,
-                Status = updatedProduct.Status,
-                StatusName = GetStatusDisplayName(updatedProduct.Status),
-                IsFeatured = updatedProduct.IsFeatured,
-                IsNewProduct = updatedProduct.IsNewProduct,
-                Order = updatedProduct.Order,
-                ViewCount = updatedProduct.ViewCount,
-                CreatedAt = updatedProduct.CreatedAt,
-                UpdatedAt = updatedProduct.UpdatedAt,
-                CreatorName = updatedProduct.Creator != null ? $"{updatedProduct.Creator.FirstName} {updatedProduct.Creator.LastName}" : null
+                MetaTitle = updatedProduct.Data.MetaTitle,
+                MetaDescription = updatedProduct.Data.MetaDescription,
+                Keywords = updatedProduct.Data.Keywords,
+                Status = updatedProduct.Data.Status,
+                StatusName = GetStatusDisplayName(updatedProduct.Data.Status),
+                IsFeatured = updatedProduct.Data.IsFeatured,
+                IsNewProduct = updatedProduct.Data.IsNewProduct,
+                Order = updatedProduct.Data.Order,
+                ViewCount = updatedProduct.Data.ViewCount,
+                CreatedAt = updatedProduct.Data.CreatedAt,
+                UpdatedAt = updatedProduct.Data.UpdatedAt,
+                CreatorName = updatedProduct.Data.Creator != null ? $"{updatedProduct.Data.Creator.FirstName} {updatedProduct.Data.Creator.LastName}" : null
             };
         }
 

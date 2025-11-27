@@ -18,34 +18,34 @@ namespace BaseApi.Application.Features.Users.Commands.UpdateUser
         {
             var user = await _userRepository.GetByIdAsync(request.Id);
 
-            if (user == null)
+            if (user?.Data == null)
                 throw new NotFoundException($"User with ID {request.Id} not found");
 
             // Check if email is already taken by another user
-            if (user.Email != request.Email)
+            if (user.Data.Email != request.Email)
             {
                 var existingUser = await _userRepository.GetByEmailAsync(request.Email);
-                if (existingUser != null && existingUser.Id != user.Id)
+                if (existingUser != null && existingUser.Data.Id != user.Data.Id)
                     throw new InvalidOperationException("Email is already taken by another user");
             }
 
-            user.Email = request.Email;
-            user.FirstName = request.FirstName;
-            user.LastName = request.LastName;
-            user.IsActive = request.IsActive;
+            user.Data.Email = request.Email;
+            user.Data.FirstName = request.FirstName;
+            user.Data.LastName = request.LastName;
+            user.Data.IsActive = request.IsActive;
 
-            var updatedUser = await _userRepository.UpdateAsync(user);
+            var updatedUser = await _userRepository.UpdateAsync(user.Data);
 
             return new UserDto
             {
-                Id = updatedUser.Id,
-                Username = updatedUser.Username,
-                Email = updatedUser.Email,
-                FirstName = updatedUser.FirstName,
-                LastName = updatedUser.LastName,
-                IsActive = updatedUser.IsActive,
-                CreatedAt = updatedUser.CreatedAt,
-                LastLoginAt = updatedUser.LastLoginAt
+                Id = updatedUser.Data.Id,
+                Username = updatedUser.Data.Username,
+                Email = updatedUser.Data.Email,
+                FirstName = updatedUser.Data.FirstName,
+                LastName = updatedUser.Data.LastName,
+                IsActive = updatedUser.Data.IsActive,
+                CreatedAt = updatedUser.Data.CreatedAt,
+                LastLoginAt = updatedUser.Data.LastLoginAt
             };
         }
     }

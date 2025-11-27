@@ -20,7 +20,7 @@ namespace BaseApi.Application.Features.Menus.Commands.DeleteMenu
 
             // Check if menu has sub-menus
             var subMenus = await _menuRepository.GetSubMenusAsync(request.Id);
-            if (subMenus.Any())
+            if (subMenus.Data.Any())
             {
                 throw new InvalidOperationException("Cannot delete menu that has sub-menus. Delete sub-menus first.");
             }

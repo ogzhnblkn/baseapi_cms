@@ -1,3 +1,4 @@
+using BaseApi.Application.Common;
 using BaseApi.Domain.Entities;
 using BaseApi.Domain.Interfaces;
 using BaseApi.Infrastructure.Data;
@@ -14,98 +15,194 @@ namespace BaseApi.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Product?> GetByIdAsync(int id)
+        public async Task<ApiResult<Product?>> GetByIdAsync(int id)
         {
-            return await _context.Products
-                .Include(p => p.Creator)
-                .FirstOrDefaultAsync(p => p.Id == id);
+            try
+            {
+                var product = await _context.Products
+                    .Include(p => p.Creator)
+                    .FirstOrDefaultAsync(p => p.Id == id);
+
+                if (product == null)
+                    return ApiResult<Product?>.NotFoundResult(Messages.Product.NotFound);
+
+                return ApiResult<Product?>.SuccessResult(product, Messages.Product.Retrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<Product?>.FailureResult($"Error retrieving product: {ex.Message}");
+            }
         }
 
-        public async Task<Product?> GetBySlugAsync(string slug)
+        public async Task<ApiResult<Product?>> GetBySlugAsync(string slug)
         {
-            return await _context.Products
-                .Include(p => p.Creator)
-                .FirstOrDefaultAsync(p => p.Slug.ToLower() == slug.ToLower());
+            try
+            {
+                var product = await _context.Products
+                    .Include(p => p.Creator)
+                    .FirstOrDefaultAsync(p => p.Slug.ToLower() == slug.ToLower());
+
+                if (product == null)
+                    return ApiResult<Product?>.NotFoundResult(Messages.Product.NotFound);
+
+                return ApiResult<Product?>.SuccessResult(product, Messages.Product.Retrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<Product?>.FailureResult($"Error retrieving product by slug: {ex.Message}");
+            }
         }
 
-        public async Task<IEnumerable<Product>> GetAllAsync()
+        public async Task<ApiResult<IEnumerable<Product>>> GetAllAsync()
         {
-            return await _context.Products
-                .Include(p => p.Creator)
-                .OrderBy(p => p.Category)
-                .ThenBy(p => p.Order)
-                .ThenBy(p => p.Name)
-                .ToListAsync();
+            try
+            {
+                var products = await _context.Products
+                    .Include(p => p.Creator)
+                    .OrderBy(p => p.Category)
+                    .ThenBy(p => p.Order)
+                    .ThenBy(p => p.Name)
+                    .ToListAsync();
+
+                return ApiResult<IEnumerable<Product>>.SuccessResult(products, Messages.Product.ListRetrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<IEnumerable<Product>>.FailureResult($"Error retrieving products: {ex.Message}");
+            }
         }
 
-        public async Task<IEnumerable<Product>> GetByCategoryAsync(ProductCategory category)
+        public async Task<ApiResult<IEnumerable<Product>>> GetByCategoryAsync(ProductCategory category)
         {
-            return await _context.Products
-                .Where(p => p.Category == category)
-                .OrderBy(p => p.Order)
-                .ThenBy(p => p.Name)
-                .ToListAsync();
+            try
+            {
+                var products = await _context.Products
+                    .Where(p => p.Category == category)
+                    .OrderBy(p => p.Order)
+                    .ThenBy(p => p.Name)
+                    .ToListAsync();
+
+                return ApiResult<IEnumerable<Product>>.SuccessResult(products, Messages.Product.ListRetrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<IEnumerable<Product>>.FailureResult($"Error retrieving products by category: {ex.Message}");
+            }
         }
 
-        public async Task<IEnumerable<Product>> GetActiveProductsAsync()
+        public async Task<ApiResult<IEnumerable<Product>>> GetActiveProductsAsync()
         {
-            return await _context.Products
-                .Where(p => p.Status == ProductStatus.Active)
-                .OrderBy(p => p.Order)
-                .ThenBy(p => p.Name)
-                .ToListAsync();
+            try
+            {
+                var products = await _context.Products
+                    .Where(p => p.Status == ProductStatus.Active)
+                    .OrderBy(p => p.Order)
+                    .ThenBy(p => p.Name)
+                    .ToListAsync();
+
+                return ApiResult<IEnumerable<Product>>.SuccessResult(products, Messages.Product.ListRetrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<IEnumerable<Product>>.FailureResult($"Error retrieving active products: {ex.Message}");
+            }
         }
 
-        public async Task<IEnumerable<Product>> GetActiveProductsByCategoryAsync(ProductCategory category)
+        public async Task<ApiResult<IEnumerable<Product>>> GetActiveProductsByCategoryAsync(ProductCategory category)
         {
-            return await _context.Products
-                .Where(p => p.Category == category && p.Status == ProductStatus.Active)
-                .OrderBy(p => p.Order)
-                .ThenBy(p => p.Name)
-                .ToListAsync();
+            try
+            {
+                var products = await _context.Products
+                    .Where(p => p.Category == category && p.Status == ProductStatus.Active)
+                    .OrderBy(p => p.Order)
+                    .ThenBy(p => p.Name)
+                    .ToListAsync();
+
+                return ApiResult<IEnumerable<Product>>.SuccessResult(products, Messages.Product.ListRetrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<IEnumerable<Product>>.FailureResult($"Error retrieving active products by category: {ex.Message}");
+            }
         }
 
-        public async Task<IEnumerable<Product>> GetFeaturedProductsAsync()
+        public async Task<ApiResult<IEnumerable<Product>>> GetFeaturedProductsAsync()
         {
-            return await _context.Products
-                .Where(p => p.IsFeatured && p.Status == ProductStatus.Active)
-                .OrderBy(p => p.Order)
-                .ThenBy(p => p.Name)
-                .ToListAsync();
+            try
+            {
+                var products = await _context.Products
+                    .Where(p => p.IsFeatured && p.Status == ProductStatus.Active)
+                    .OrderBy(p => p.Order)
+                    .ThenBy(p => p.Name)
+                    .ToListAsync();
+
+                return ApiResult<IEnumerable<Product>>.SuccessResult(products, Messages.Product.ListRetrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<IEnumerable<Product>>.FailureResult($"Error retrieving featured products: {ex.Message}");
+            }
         }
 
-        public async Task<IEnumerable<Product>> GetNewProductsAsync()
+        public async Task<ApiResult<IEnumerable<Product>>> GetNewProductsAsync()
         {
-            return await _context.Products
-                .Where(p => p.IsNewProduct && p.Status == ProductStatus.Active)
-                .OrderByDescending(p => p.CreatedAt)
-                .ToListAsync();
+            try
+            {
+                var products = await _context.Products
+                    .Where(p => p.IsNewProduct && p.Status == ProductStatus.Active)
+                    .OrderByDescending(p => p.CreatedAt)
+                    .ToListAsync();
+
+                return ApiResult<IEnumerable<Product>>.SuccessResult(products, Messages.Product.ListRetrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<IEnumerable<Product>>.FailureResult($"Error retrieving new products: {ex.Message}");
+            }
         }
 
-        public async Task<IEnumerable<Product>> GetProductsOnSaleAsync()
+        public async Task<ApiResult<IEnumerable<Product>>> GetProductsOnSaleAsync()
         {
-            return await _context.Products
-                .Where(p => p.DiscountPrice.HasValue && p.Price.HasValue &&
-                           p.DiscountPrice < p.Price && p.Status == ProductStatus.Active)
-                .OrderBy(p => p.Order)
-                .ThenBy(p => p.Name)
-                .ToListAsync();
+            try
+            {
+                var products = await _context.Products
+                    .Where(p => p.DiscountPrice.HasValue && p.Price.HasValue &&
+                               p.DiscountPrice < p.Price && p.Status == ProductStatus.Active)
+                    .OrderBy(p => p.Order)
+                    .ThenBy(p => p.Name)
+                    .ToListAsync();
+
+                return ApiResult<IEnumerable<Product>>.SuccessResult(products, Messages.Product.ListRetrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<IEnumerable<Product>>.FailureResult($"Error retrieving products on sale: {ex.Message}");
+            }
         }
 
-        public async Task<IEnumerable<Product>> SearchProductsAsync(string searchTerm)
+        public async Task<ApiResult<IEnumerable<Product>>> SearchProductsAsync(string searchTerm)
         {
-            var term = searchTerm.ToLower();
-            return await _context.Products
-                .Where(p => p.Status == ProductStatus.Active &&
-                           (p.Name.ToLower().Contains(term) ||
-                            p.Description!.ToLower().Contains(term) ||
-                            p.ShortDescription!.ToLower().Contains(term) ||
-                            p.ProductCode!.ToLower().Contains(term)))
-                .OrderBy(p => p.Name)
-                .ToListAsync();
+            try
+            {
+                var term = searchTerm.ToLower();
+                var products = await _context.Products
+                    .Where(p => p.Status == ProductStatus.Active &&
+                               (p.Name.ToLower().Contains(term) ||
+                                p.Description!.ToLower().Contains(term) ||
+                                p.ShortDescription!.ToLower().Contains(term) ||
+                                p.ProductCode!.ToLower().Contains(term)))
+                    .OrderBy(p => p.Name)
+                    .ToListAsync();
+
+                return ApiResult<IEnumerable<Product>>.SuccessResult(products, Messages.Product.ListRetrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<IEnumerable<Product>>.FailureResult($"Error searching products: {ex.Message}");
+            }
         }
 
-        public async Task<Product> CreateAsync(Product product)
+        public async Task<ApiResult<Product>> CreateAsync(Product product)
         {
             try
             {
@@ -126,7 +223,8 @@ namespace BaseApi.Infrastructure.Repositories
                 // Set order if not provided
                 if (product.Order == 0)
                 {
-                    product.Order = await GetMaxOrderAsync(product.Category) + 1;
+                    var maxOrderResult = await GetMaxOrderAsync(product.Category);
+                    product.Order = (maxOrderResult?.Data ?? 0) + 1;
                 }
 
                 // Auto-generate product code if not provided
@@ -137,32 +235,47 @@ namespace BaseApi.Infrastructure.Repositories
 
                 _context.Products.Add(product);
                 await _context.SaveChangesAsync();
+
+                return ApiResult<Product>.SuccessResult(product, Messages.Product.Created);
             }
             catch (Exception ex)
             {
-
-                return product;
+                return ApiResult<Product>.FailureResult($"Error creating product: {ex.Message}");
             }
-            // Auto-generate slug if not provided
-
-            return product;
         }
 
-        public async Task<Product> UpdateAsync(Product product)
+        public async Task<ApiResult<Product>> UpdateAsync(Product product)
         {
-            product.UpdatedAt = DateTime.UtcNow;
-            _context.Products.Update(product);
-            await _context.SaveChangesAsync();
-            return product;
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-            var product = await GetByIdAsync(id);
-            if (product != null)
+            try
             {
+                product.UpdatedAt = DateTime.UtcNow;
+                _context.Products.Update(product);
+                await _context.SaveChangesAsync();
+
+                return ApiResult<Product>.SuccessResult(product, Messages.Product.Updated);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<Product>.FailureResult($"Error updating product: {ex.Message}");
+            }
+        }
+
+        public async Task<ApiResult> DeleteAsync(int id)
+        {
+            try
+            {
+                var product = await _context.Products.FindAsync(id);
+                if (product == null)
+                    return ApiResult.FailureResult(Messages.Product.NotFound);
+
                 _context.Products.Remove(product);
                 await _context.SaveChangesAsync();
+
+                return ApiResult.SuccessResult(Messages.Product.Deleted);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult.FailureResult($"Error deleting product: {ex.Message}");
             }
         }
 
@@ -178,78 +291,122 @@ namespace BaseApi.Infrastructure.Repositories
             return await query.AnyAsync();
         }
 
-        public async Task<int> GetMaxOrderAsync(ProductCategory? category = null)
+        public async Task<ApiResult<int>> GetMaxOrderAsync(ProductCategory? category = null)
         {
-            var query = _context.Products.AsQueryable();
-
-            if (category.HasValue)
+            try
             {
-                query = query.Where(p => p.Category == category.Value);
+                var query = _context.Products.AsQueryable();
+
+                if (category.HasValue)
+                {
+                    query = query.Where(p => p.Category == category.Value);
+                }
+
+                if (!await query.AnyAsync())
+                    return ApiResult<int>.SuccessResult(0);
+
+                var maxOrder = await query.MaxAsync(p => p.Order);
+                return ApiResult<int>.SuccessResult(maxOrder);
             }
-
-            if (!await query.AnyAsync())
-                return 0;
-
-            return await query.MaxAsync(p => p.Order);
+            catch (Exception ex)
+            {
+                return ApiResult<int>.FailureResult($"Error getting max order: {ex.Message}");
+            }
         }
 
-        public async Task ReorderProductsAsync(IEnumerable<(int Id, int Order)> productOrders)
+        public async Task<ApiResult> ReorderProductsAsync(IEnumerable<(int Id, int Order)> productOrders)
         {
-            foreach (var (id, order) in productOrders)
+            try
+            {
+                foreach (var (id, order) in productOrders)
+                {
+                    var product = await _context.Products.FindAsync(id);
+                    if (product != null)
+                    {
+                        product.Order = order;
+                        product.UpdatedAt = DateTime.UtcNow;
+                    }
+                }
+                await _context.SaveChangesAsync();
+
+                return ApiResult.SuccessResult("Products reordered successfully");
+            }
+            catch (Exception ex)
+            {
+                return ApiResult.FailureResult($"Error reordering products: {ex.Message}");
+            }
+        }
+
+        public async Task<ApiResult> IncrementViewCountAsync(int id)
+        {
+            try
             {
                 var product = await _context.Products.FindAsync(id);
-                if (product != null)
-                {
-                    product.Order = order;
-                    product.UpdatedAt = DateTime.UtcNow;
-                }
-            }
-            await _context.SaveChangesAsync();
-        }
+                if (product == null)
+                    return ApiResult.FailureResult(Messages.Product.NotFound);
 
-        public async Task IncrementViewCountAsync(int id)
-        {
-            var product = await _context.Products.FindAsync(id);
-            if (product != null)
-            {
                 product.ViewCount++;
                 await _context.SaveChangesAsync();
+
+                return ApiResult.SuccessResult("View count incremented successfully");
+            }
+            catch (Exception ex)
+            {
+                return ApiResult.FailureResult($"Error incrementing view count: {ex.Message}");
             }
         }
 
-        public async Task<IEnumerable<Product>> GetProductsByStatusAsync(ProductStatus status)
+        public async Task<ApiResult<IEnumerable<Product>>> GetProductsByStatusAsync(ProductStatus status)
         {
-            return await _context.Products
-                .Where(p => p.Status == status)
-                .OrderBy(p => p.Order)
-                .ThenBy(p => p.Name)
-                .ToListAsync();
+            try
+            {
+                var products = await _context.Products
+                    .Where(p => p.Status == status)
+                    .OrderBy(p => p.Order)
+                    .ThenBy(p => p.Name)
+                    .ToListAsync();
+
+                return ApiResult<IEnumerable<Product>>.SuccessResult(products, Messages.Product.ListRetrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<IEnumerable<Product>>.FailureResult($"Error retrieving products by status: {ex.Message}");
+            }
         }
 
-        public async Task<IEnumerable<Product>> GetProductsWithPriceRangeAsync(decimal? minPrice, decimal? maxPrice, ProductCategory? category = null)
+        public async Task<ApiResult<IEnumerable<Product>>> GetProductsWithPriceRangeAsync(decimal? minPrice, decimal? maxPrice, ProductCategory? category = null)
         {
-            var query = _context.Products
-                .Where(p => p.Status == ProductStatus.Active && p.Price.HasValue);
-
-            if (minPrice.HasValue)
+            try
             {
-                query = query.Where(p => p.Price >= minPrice);
-            }
+                var query = _context.Products
+                    .Where(p => p.Status == ProductStatus.Active && p.Price.HasValue);
 
-            if (maxPrice.HasValue)
+                if (minPrice.HasValue)
+                {
+                    query = query.Where(p => p.Price >= minPrice);
+                }
+
+                if (maxPrice.HasValue)
+                {
+                    query = query.Where(p => p.Price <= maxPrice);
+                }
+
+                if (category.HasValue)
+                {
+                    query = query.Where(p => p.Category == category);
+                }
+
+                var products = await query
+                    .OrderBy(p => p.Order)
+                    .ThenBy(p => p.Name)
+                    .ToListAsync();
+
+                return ApiResult<IEnumerable<Product>>.SuccessResult(products, Messages.Product.ListRetrieved);
+            }
+            catch (Exception ex)
             {
-                query = query.Where(p => p.Price <= maxPrice);
+                return ApiResult<IEnumerable<Product>>.FailureResult($"Error retrieving products with price range: {ex.Message}");
             }
-
-            if (category.HasValue)
-            {
-                query = query.Where(p => p.Category == category);
-            }
-
-            return await query
-                .OrderBy(p => p.Order)
-                .ThenBy(p => p.Name)
-                .ToListAsync();
         }
 
         private static string GenerateSlug(string name)

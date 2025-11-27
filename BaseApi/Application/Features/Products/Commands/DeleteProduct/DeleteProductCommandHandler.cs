@@ -23,14 +23,14 @@ namespace BaseApi.Application.Features.Products.Commands.DeleteProduct
                 return false;
 
             // Delete associated files
-            if (!string.IsNullOrEmpty(product.MainImageUrl))
+            if (!string.IsNullOrEmpty(product.Data.MainImageUrl))
             {
-                await _fileUploadService.DeleteFileAsync(product.MainImageUrl);
+                await _fileUploadService.DeleteFileAsync(product.Data.MainImageUrl);
             }
 
-            if (!string.IsNullOrEmpty(product.ImageUrls))
+            if (!string.IsNullOrEmpty(product.Data.ImageUrls))
             {
-                var imageUrls = JsonSerializer.Deserialize<List<string>>(product.ImageUrls);
+                var imageUrls = JsonSerializer.Deserialize<List<string>>(product.Data.ImageUrls);
                 if (imageUrls != null)
                 {
                     foreach (var imageUrl in imageUrls)

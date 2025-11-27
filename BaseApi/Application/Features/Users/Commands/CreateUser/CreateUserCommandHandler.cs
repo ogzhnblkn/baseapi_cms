@@ -37,13 +37,13 @@ namespace BaseApi.Application.Features.Users.Commands.CreateUser
 
             return new UserDto
             {
-                Id = createdUser.Id,
-                Username = createdUser.Username,
-                Email = createdUser.Email,
-                FirstName = createdUser.FirstName,
-                LastName = createdUser.LastName,
-                IsActive = createdUser.IsActive,
-                CreatedAt = createdUser.CreatedAt
+                Id = createdUser.Data.Id,
+                Username = createdUser.Data.Username,
+                Email = createdUser.Data.Email,
+                FirstName = createdUser.Data.FirstName,
+                LastName = createdUser.Data.LastName,
+                IsActive = createdUser.Data.IsActive,
+                CreatedAt = createdUser.Data.CreatedAt
             };
         }
     }

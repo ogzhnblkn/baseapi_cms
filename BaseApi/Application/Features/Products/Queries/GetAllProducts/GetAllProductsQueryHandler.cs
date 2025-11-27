@@ -18,36 +18,15 @@ namespace BaseApi.Application.Features.Products.Queries.GetAllProducts
 
         public async Task<IEnumerable<ProductDto>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
         {
-            IEnumerable<Domain.Entities.Product> products;
+            var productsResult = await GetProductsAsync(request);
 
-            if (!string.IsNullOrEmpty(request.SearchTerm))
+            // If the result failed, return empty collection
+            if (!productsResult.Success)
             {
-                products = await _productRepository.SearchProductsAsync(request.SearchTerm);
+                return Enumerable.Empty<ProductDto>();
             }
-            else if (request.MinPrice.HasValue || request.MaxPrice.HasValue)
-            {
-                products = await _productRepository.GetProductsWithPriceRangeAsync(request.MinPrice, request.MaxPrice, request.Category);
-            }
-            else if (request.Category.HasValue && request.ActiveOnly)
-            {
-                products = await _productRepository.GetActiveProductsByCategoryAsync(request.Category.Value);
-            }
-            else if (request.Category.HasValue)
-            {
-                products = await _productRepository.GetByCategoryAsync(request.Category.Value);
-            }
-            else if (request.ActiveOnly)
-            {
-                products = await _productRepository.GetActiveProductsAsync();
-            }
-            else if (request.Status.HasValue)
-            {
-                products = await _productRepository.GetProductsByStatusAsync(request.Status.Value);
-            }
-            else
-            {
-                products = await _productRepository.GetAllAsync();
-            }
+
+            var products = productsResult.Data ?? Enumerable.Empty<Domain.Entities.Product>();
 
             // Apply additional filters
             if (request.IsFeatured.HasValue)
@@ -97,6 +76,38 @@ namespace BaseApi.Application.Features.Products.Queries.GetAllProducts
                 UpdatedAt = product.UpdatedAt,
                 CreatorName = product.Creator != null ? $"{product.Creator.FirstName} {product.Creator.LastName}" : null
             });
+        }
+
+        private async Task<BaseApi.Application.Common.ApiResult<IEnumerable<Domain.Entities.Product>>> GetProductsAsync(GetAllProductsQuery request)
+        {
+            if (!string.IsNullOrEmpty(request.SearchTerm))
+            {
+                return await _productRepository.SearchProductsAsync(request.SearchTerm);
+            }
+            else if (request.MinPrice.HasValue || request.MaxPrice.HasValue)
+            {
+                return await _productRepository.GetProductsWithPriceRangeAsync(request.MinPrice, request.MaxPrice, request.Category);
+            }
+            else if (request.Category.HasValue && request.ActiveOnly)
+            {
+                return await _productRepository.GetActiveProductsByCategoryAsync(request.Category.Value);
+            }
+            else if (request.Category.HasValue)
+            {
+                return await _productRepository.GetByCategoryAsync(request.Category.Value);
+            }
+            else if (request.ActiveOnly)
+            {
+                return await _productRepository.GetActiveProductsAsync();
+            }
+            else if (request.Status.HasValue)
+            {
+                return await _productRepository.GetProductsByStatusAsync(request.Status.Value);
+            }
+            else
+            {
+                return await _productRepository.GetAllAsync();
+            }
         }
 
         private static string GetCategoryDisplayName(ProductCategory category)

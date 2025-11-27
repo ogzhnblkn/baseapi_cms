@@ -17,7 +17,7 @@ namespace BaseApi.Application.Features.Users.Queries.GetAllUsers
         {
             var users = await _userRepository.GetAllAsync();
 
-            return users.Select(user => new UserDto
+            return users.Data.Select(user => new UserDto
             {
                 Id = user.Id,
                 Username = user.Username,

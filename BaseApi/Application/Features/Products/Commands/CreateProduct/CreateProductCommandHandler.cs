@@ -53,7 +53,11 @@ namespace BaseApi.Application.Features.Products.Commands.CreateProduct
                 CreatedAt = DateTime.UtcNow
             };
 
-            var createdProduct = await _productRepository.CreateAsync(product);
+            var createResult = await _productRepository.CreateAsync(product);
+            if (!createResult.Success)
+                throw new InvalidOperationException(createResult.Message);
+
+            var createdProduct = createResult.Data!;
 
             return new ProductDto
             {

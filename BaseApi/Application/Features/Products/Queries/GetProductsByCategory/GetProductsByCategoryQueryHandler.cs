@@ -18,16 +18,16 @@ namespace BaseApi.Application.Features.Products.Queries.GetProductsByCategory
 
         public async Task<IEnumerable<ProductDto>> Handle(GetProductsByCategoryQuery request, CancellationToken cancellationToken)
         {
-            IEnumerable<Domain.Entities.Product> products;
+            var productsResult = request.ActiveOnly
+                ? await _productRepository.GetActiveProductsByCategoryAsync(request.Category)
+                : await _productRepository.GetByCategoryAsync(request.Category);
 
-            if (request.ActiveOnly)
+            if (!productsResult.Success)
             {
-                products = await _productRepository.GetActiveProductsByCategoryAsync(request.Category);
+                return Enumerable.Empty<ProductDto>();
             }
-            else
-            {
-                products = await _productRepository.GetByCategoryAsync(request.Category);
-            }
+
+            var products = productsResult.Data ?? Enumerable.Empty<Domain.Entities.Product>();
 
             return products.Select(product => new ProductDto
             {

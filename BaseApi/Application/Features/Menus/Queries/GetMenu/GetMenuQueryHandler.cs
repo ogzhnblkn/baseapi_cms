@@ -15,9 +15,12 @@ namespace BaseApi.Application.Features.Menus.Queries.GetMenu
 
         public async Task<MenuDto?> Handle(GetMenuQuery request, CancellationToken cancellationToken)
         {
-            var menu = await _menuRepository.GetByIdAsync(request.Id);
-            if (menu == null)
+            var menuResult = await _menuRepository.GetByIdAsync(request.Id);
+
+            if (!menuResult.Success || menuResult.Data == null)
                 return null;
+
+            var menu = menuResult.Data;
 
             return new MenuDto
             {

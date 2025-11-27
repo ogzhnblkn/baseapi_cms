@@ -15,9 +15,12 @@ namespace BaseApi.Application.Features.Sliders.Queries.GetSlider
 
         public async Task<SliderDto?> Handle(GetSliderQuery request, CancellationToken cancellationToken)
         {
-            var slider = await _sliderRepository.GetByIdAsync(request.Id);
-            if (slider == null)
+            var sliderResult = await _sliderRepository.GetByIdAsync(request.Id);
+
+            if (!sliderResult.Success || sliderResult.Data == null)
                 return null;
+
+            var slider = sliderResult.Data;
 
             return new SliderDto
             {

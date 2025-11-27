@@ -1,3 +1,4 @@
+using BaseApi.Application.Common;
 using BaseApi.Domain.Entities;
 using BaseApi.Domain.Interfaces;
 using BaseApi.Infrastructure.Data;
@@ -14,178 +15,315 @@ namespace BaseApi.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Slider?> GetByIdAsync(int id)
+        public async Task<ApiResult<Slider?>> GetByIdAsync(int id)
         {
-            return await _context.Sliders
-                .Include(s => s.Creator)
-                .FirstOrDefaultAsync(s => s.Id == id);
-        }
-
-        public async Task<IEnumerable<Slider>> GetAllAsync()
-        {
-            return await _context.Sliders
-                .Include(s => s.Creator)
-                .OrderBy(s => s.SliderType)
-                .ThenBy(s => s.Order)
-                .ThenByDescending(s => s.CreatedAt)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Slider>> GetBySliderTypeAsync(SliderType sliderType)
-        {
-            return await _context.Sliders
-                .Where(s => s.SliderType == sliderType)
-                .OrderBy(s => s.Order)
-                .ThenByDescending(s => s.CreatedAt)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Slider>> GetActiveSlidersByTypeAsync(SliderType sliderType)
-        {
-            var now = DateTime.UtcNow;
-
-            return await _context.Sliders
-                .Where(s => s.SliderType == sliderType &&
-                           s.IsActive &&
-                           (s.StartDate == null || s.StartDate <= now) &&
-                           (s.EndDate == null || s.EndDate >= now))
-                .OrderBy(s => s.Order)
-                .ThenByDescending(s => s.CreatedAt)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Slider>> GetSlidersByLocationAsync(string targetLocation)
-        {
-            return await _context.Sliders
-                .Where(s => s.TargetLocation == targetLocation)
-                .OrderBy(s => s.Order)
-                .ThenByDescending(s => s.CreatedAt)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Slider>> GetActiveSlidersByLocationAsync(string targetLocation)
-        {
-            var now = DateTime.UtcNow;
-
-            return await _context.Sliders
-                .Where(s => s.TargetLocation == targetLocation &&
-                           s.IsActive &&
-                           (s.StartDate == null || s.StartDate <= now) &&
-                           (s.EndDate == null || s.EndDate >= now))
-                .OrderBy(s => s.Order)
-                .ThenByDescending(s => s.CreatedAt)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Slider>> GetActiveSlidersInDateRangeAsync(SliderType? sliderType = null)
-        {
-            var now = DateTime.UtcNow;
-            var query = _context.Sliders
-                .Where(s => s.IsActive &&
-                           (s.StartDate == null || s.StartDate <= now) &&
-                           (s.EndDate == null || s.EndDate >= now));
-
-            if (sliderType.HasValue)
+            try
             {
-                query = query.Where(s => s.SliderType == sliderType.Value);
+                var slider = await _context.Sliders
+                    .Include(s => s.Creator)
+                    .FirstOrDefaultAsync(s => s.Id == id);
+
+                if (slider == null)
+                    return ApiResult<Slider?>.NotFoundResult(Messages.Slider.NotFound);
+
+                return ApiResult<Slider?>.SuccessResult(slider, Messages.Slider.Retrieved);
             }
-
-            return await query
-                .OrderBy(s => s.SliderType)
-                .ThenBy(s => s.Order)
-                .ThenByDescending(s => s.CreatedAt)
-                .ToListAsync();
-        }
-
-        public async Task<Slider> CreateAsync(Slider slider)
-        {
-            // Set order if not provided
-            if (slider.Order == 0)
+            catch (Exception ex)
             {
-                slider.Order = await GetMaxOrderAsync(slider.SliderType) + 1;
+                return ApiResult<Slider?>.FailureResult($"Error retrieving slider: {ex.Message}");
             }
-
-            _context.Sliders.Add(slider);
-            await _context.SaveChangesAsync();
-            return slider;
         }
 
-        public async Task<Slider> UpdateAsync(Slider slider)
+        public async Task<ApiResult<IEnumerable<Slider>>> GetAllAsync()
         {
-            slider.UpdatedAt = DateTime.UtcNow;
-            _context.Sliders.Update(slider);
-            await _context.SaveChangesAsync();
-            return slider;
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-            var slider = await GetByIdAsync(id);
-            if (slider != null)
+            try
             {
-                _context.Sliders.Remove(slider);
+                var sliders = await _context.Sliders
+                    .Include(s => s.Creator)
+                    .OrderBy(s => s.SliderType)
+                    .ThenBy(s => s.Order)
+                    .ThenByDescending(s => s.CreatedAt)
+                    .ToListAsync();
+
+                return ApiResult<IEnumerable<Slider>>.SuccessResult(sliders, Messages.Slider.ListRetrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<IEnumerable<Slider>>.FailureResult($"Error retrieving sliders: {ex.Message}");
+            }
+        }
+
+        public async Task<ApiResult<IEnumerable<Slider>>> GetBySliderTypeAsync(SliderType sliderType)
+        {
+            try
+            {
+                var sliders = await _context.Sliders
+                    .Where(s => s.SliderType == sliderType)
+                    .OrderBy(s => s.Order)
+                    .ThenByDescending(s => s.CreatedAt)
+                    .ToListAsync();
+
+                return ApiResult<IEnumerable<Slider>>.SuccessResult(sliders, Messages.Slider.ListRetrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<IEnumerable<Slider>>.FailureResult($"Error retrieving sliders by type: {ex.Message}");
+            }
+        }
+
+        public async Task<ApiResult<IEnumerable<Slider>>> GetActiveSlidersByTypeAsync(SliderType sliderType)
+        {
+            try
+            {
+                var now = DateTime.UtcNow;
+
+                var sliders = await _context.Sliders
+                    .Where(s => s.SliderType == sliderType &&
+                               s.IsActive &&
+                               (s.StartDate == null || s.StartDate <= now) &&
+                               (s.EndDate == null || s.EndDate >= now))
+                    .OrderBy(s => s.Order)
+                    .ThenByDescending(s => s.CreatedAt)
+                    .ToListAsync();
+
+                return ApiResult<IEnumerable<Slider>>.SuccessResult(sliders, Messages.Slider.ListRetrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<IEnumerable<Slider>>.FailureResult($"Error retrieving active sliders: {ex.Message}");
+            }
+        }
+
+        public async Task<ApiResult<IEnumerable<Slider>>> GetSlidersByLocationAsync(string targetLocation)
+        {
+            try
+            {
+                var sliders = await _context.Sliders
+                    .Where(s => s.TargetLocation == targetLocation)
+                    .OrderBy(s => s.Order)
+                    .ThenByDescending(s => s.CreatedAt)
+                    .ToListAsync();
+
+                return ApiResult<IEnumerable<Slider>>.SuccessResult(sliders, Messages.Slider.ListRetrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<IEnumerable<Slider>>.FailureResult($"Error retrieving sliders by location: {ex.Message}");
+            }
+        }
+
+        public async Task<ApiResult<IEnumerable<Slider>>> GetActiveSlidersByLocationAsync(string targetLocation)
+        {
+            try
+            {
+                var now = DateTime.UtcNow;
+
+                var sliders = await _context.Sliders
+                    .Where(s => s.TargetLocation == targetLocation &&
+                               s.IsActive &&
+                               (s.StartDate == null || s.StartDate <= now) &&
+                               (s.EndDate == null || s.EndDate >= now))
+                    .OrderBy(s => s.Order)
+                    .ThenByDescending(s => s.CreatedAt)
+                    .ToListAsync();
+
+                return ApiResult<IEnumerable<Slider>>.SuccessResult(sliders, Messages.Slider.ListRetrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<IEnumerable<Slider>>.FailureResult($"Error retrieving active sliders by location: {ex.Message}");
+            }
+        }
+
+        public async Task<ApiResult<IEnumerable<Slider>>> GetActiveSlidersInDateRangeAsync(SliderType? sliderType = null)
+        {
+            try
+            {
+                var now = DateTime.UtcNow;
+                var query = _context.Sliders
+                    .Where(s => s.IsActive &&
+                               (s.StartDate == null || s.StartDate <= now) &&
+                               (s.EndDate == null || s.EndDate >= now));
+
+                if (sliderType.HasValue)
+                {
+                    query = query.Where(s => s.SliderType == sliderType.Value);
+                }
+
+                var sliders = await query
+                    .OrderBy(s => s.SliderType)
+                    .ThenBy(s => s.Order)
+                    .ThenByDescending(s => s.CreatedAt)
+                    .ToListAsync();
+
+                return ApiResult<IEnumerable<Slider>>.SuccessResult(sliders, Messages.Slider.ListRetrieved);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<IEnumerable<Slider>>.FailureResult($"Error retrieving active sliders in date range: {ex.Message}");
+            }
+        }
+
+        public async Task<ApiResult<Slider>> CreateAsync(Slider slider)
+        {
+            try
+            {
+                // Set order if not provided
+                if (slider.Order == 0)
+                {
+                    var maxOrderResult = await GetMaxOrderAsync(slider.SliderType);
+                    slider.Order = (maxOrderResult?.Data ?? 0) + 1;
+                }
+
+                _context.Sliders.Add(slider);
                 await _context.SaveChangesAsync();
+
+                return ApiResult<Slider>.SuccessResult(slider, Messages.Slider.Created);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<Slider>.FailureResult($"Error creating slider: {ex.Message}");
             }
         }
 
-        public async Task<int> GetMaxOrderAsync(SliderType sliderType)
+        public async Task<ApiResult<Slider>> UpdateAsync(Slider slider)
         {
-            var sliders = await _context.Sliders
-                .Where(s => s.SliderType == sliderType)
-                .ToListAsync();
+            try
+            {
+                slider.UpdatedAt = DateTime.UtcNow;
+                _context.Sliders.Update(slider);
+                await _context.SaveChangesAsync();
 
-            if (!sliders.Any())
-                return 0;
-
-            return sliders.Max(s => s.Order);
+                return ApiResult<Slider>.SuccessResult(slider, Messages.Slider.Updated);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<Slider>.FailureResult($"Error updating slider: {ex.Message}");
+            }
         }
 
-        public async Task ReorderSlidersAsync(IEnumerable<(int Id, int Order)> sliderOrders)
+        public async Task<ApiResult> DeleteAsync(int id)
         {
-            foreach (var (id, order) in sliderOrders)
+            try
             {
                 var slider = await _context.Sliders.FindAsync(id);
-                if (slider != null)
-                {
-                    slider.Order = order;
-                    slider.UpdatedAt = DateTime.UtcNow;
-                }
+                if (slider == null)
+                    return ApiResult.FailureResult(Messages.Slider.NotFound);
+
+                _context.Sliders.Remove(slider);
+                await _context.SaveChangesAsync();
+
+                return ApiResult.SuccessResult(Messages.Slider.Deleted);
             }
-            await _context.SaveChangesAsync();
+            catch (Exception ex)
+            {
+                return ApiResult.FailureResult($"Error deleting slider: {ex.Message}");
+            }
         }
 
-        public async Task IncrementClickCountAsync(int id)
+        public async Task<ApiResult<int>> GetMaxOrderAsync(SliderType sliderType)
         {
-            var slider = await _context.Sliders.FindAsync(id);
-            if (slider != null)
+            try
             {
+                var sliders = await _context.Sliders
+                    .Where(s => s.SliderType == sliderType)
+                    .ToListAsync();
+
+                if (!sliders.Any())
+                    return ApiResult<int>.SuccessResult(0);
+
+                var maxOrder = sliders.Max(s => s.Order);
+                return ApiResult<int>.SuccessResult(maxOrder);
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<int>.FailureResult($"Error getting max order: {ex.Message}");
+            }
+        }
+
+        public async Task<ApiResult> ReorderSlidersAsync(IEnumerable<(int Id, int Order)> sliderOrders)
+        {
+            try
+            {
+                foreach (var (id, order) in sliderOrders)
+                {
+                    var slider = await _context.Sliders.FindAsync(id);
+                    if (slider != null)
+                    {
+                        slider.Order = order;
+                        slider.UpdatedAt = DateTime.UtcNow;
+                    }
+                }
+                await _context.SaveChangesAsync();
+
+                return ApiResult.SuccessResult("Sliders reordered successfully");
+            }
+            catch (Exception ex)
+            {
+                return ApiResult.FailureResult($"Error reordering sliders: {ex.Message}");
+            }
+        }
+
+        public async Task<ApiResult> IncrementClickCountAsync(int id)
+        {
+            try
+            {
+                var slider = await _context.Sliders.FindAsync(id);
+                if (slider == null)
+                    return ApiResult.FailureResult(Messages.Slider.NotFound);
+
                 slider.ClickCount++;
                 slider.UpdatedAt = DateTime.UtcNow;
                 await _context.SaveChangesAsync();
+
+                return ApiResult.SuccessResult("Click count incremented successfully");
+            }
+            catch (Exception ex)
+            {
+                return ApiResult.FailureResult($"Error incrementing click count: {ex.Message}");
             }
         }
 
-        public async Task IncrementViewCountAsync(int id)
+        public async Task<ApiResult> IncrementViewCountAsync(int id)
         {
-            var slider = await _context.Sliders.FindAsync(id);
-            if (slider != null)
+            try
             {
+                var slider = await _context.Sliders.FindAsync(id);
+                if (slider == null)
+                    return ApiResult.FailureResult(Messages.Slider.NotFound);
+
                 slider.ViewCount++;
                 await _context.SaveChangesAsync();
+
+                return ApiResult.SuccessResult("View count incremented successfully");
+            }
+            catch (Exception ex)
+            {
+                return ApiResult.FailureResult($"Error incrementing view count: {ex.Message}");
             }
         }
 
-        public async Task<IEnumerable<Slider>> GetExpiringSliders(int daysBeforeExpiry)
+        public async Task<ApiResult<IEnumerable<Slider>>> GetExpiringSliders(int daysBeforeExpiry)
         {
-            var targetDate = DateTime.UtcNow.AddDays(daysBeforeExpiry);
+            try
+            {
+                var targetDate = DateTime.UtcNow.AddDays(daysBeforeExpiry);
 
-            return await _context.Sliders
-                .Where(s => s.EndDate.HasValue &&
-                           s.EndDate.Value <= targetDate &&
-                           s.EndDate.Value >= DateTime.UtcNow &&
-                           s.IsActive)
-                .Include(s => s.Creator)
-                .ToListAsync();
+                var sliders = await _context.Sliders
+                    .Where(s => s.EndDate.HasValue &&
+                               s.EndDate.Value <= targetDate &&
+                               s.EndDate.Value >= DateTime.UtcNow &&
+                               s.IsActive)
+                    .Include(s => s.Creator)
+                    .ToListAsync();
+
+                return ApiResult<IEnumerable<Slider>>.SuccessResult(sliders, "Expiring sliders retrieved successfully");
+            }
+            catch (Exception ex)
+            {
+                return ApiResult<IEnumerable<Slider>>.FailureResult($"Error retrieving expiring sliders: {ex.Message}");
+            }
+
         }
     }
 }

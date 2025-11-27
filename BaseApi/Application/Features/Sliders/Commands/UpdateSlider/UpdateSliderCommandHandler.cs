@@ -16,9 +16,11 @@ namespace BaseApi.Application.Features.Sliders.Commands.UpdateSlider
 
         public async Task<SliderDto> Handle(UpdateSliderCommand request, CancellationToken cancellationToken)
         {
-            var slider = await _sliderRepository.GetByIdAsync(request.Id);
-            if (slider == null)
+            var sliderResult = await _sliderRepository.GetByIdAsync(request.Id);
+            if (!sliderResult.Success || sliderResult.Data == null)
                 throw new NotFoundException($"Slider with ID {request.Id} not found");
+
+            var slider = sliderResult.Data;
 
             // Validate date range
             if (request.StartDate.HasValue && request.EndDate.HasValue && request.StartDate > request.EndDate)
@@ -42,7 +44,11 @@ namespace BaseApi.Application.Features.Sliders.Commands.UpdateSlider
             slider.StartDate = request.StartDate;
             slider.EndDate = request.EndDate;
 
-            var updatedSlider = await _sliderRepository.UpdateAsync(slider);
+            var updateResult = await _sliderRepository.UpdateAsync(slider);
+            if (!updateResult.Success)
+                throw new InvalidOperationException(updateResult.Message);
+
+            var updatedSlider = updateResult.Data!;
 
             return new SliderDto
             {

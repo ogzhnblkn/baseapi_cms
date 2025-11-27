@@ -19,10 +19,11 @@ namespace BaseApi.Application.Features.Menus.Commands.CreateMenu
             // Validate parent menu exists if ParentId is provided
             if (request.ParentId.HasValue)
             {
-                var parent = await _menuRepository.GetByIdAsync(request.ParentId.Value);
-                if (parent == null)
+                var parentResult = await _menuRepository.GetByIdAsync(request.ParentId.Value);
+                if (!parentResult.Success || parentResult.Data == null)
                     throw new InvalidOperationException("Parent menu not found");
 
+                var parent = parentResult.Data;
                 if (parent.ParentId != null)
                     throw new InvalidOperationException("Cannot create menu under a sub-menu. Maximum 2 levels allowed.");
             }
@@ -47,7 +48,11 @@ namespace BaseApi.Application.Features.Menus.Commands.CreateMenu
                 CreatedAt = DateTime.UtcNow
             };
 
-            var createdMenu = await _menuRepository.CreateAsync(menu);
+            var createResult = await _menuRepository.CreateAsync(menu);
+            if (!createResult.Success)
+                throw new InvalidOperationException(createResult.Message);
+
+            var createdMenu = createResult.Data!;
 
             return new MenuDto
             {
