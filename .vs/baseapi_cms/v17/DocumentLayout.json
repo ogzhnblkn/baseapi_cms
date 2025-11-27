@@ -1,0 +1,664 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\infrastructure\\repositories\\productrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\infrastructure\\repositories\\productrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\dtos\\product\\createproductdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\dtos\\product\\createproductdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\validators\\updateproductcommandvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\validators\\updateproductcommandvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\validators\\createproductcommandvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\validators\\createproductcommandvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\features\\products\\queries\\getproductsbycategory\\getproductsbycategoryquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\features\\products\\queries\\getproductsbycategory\\getproductsbycategoryquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\features\\products\\queries\\getallproducts\\getallproductsquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\features\\products\\queries\\getallproducts\\getallproductsquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\features\\products\\queries\\getproduct\\getproductquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\features\\products\\queries\\getproduct\\getproductquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\features\\products\\commands\\deleteproduct\\deleteproductcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\features\\products\\commands\\deleteproduct\\deleteproductcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\features\\products\\commands\\deleteproduct\\deleteproductcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\features\\products\\commands\\deleteproduct\\deleteproductcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\features\\products\\commands\\updateproduct\\updateproductcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\features\\products\\commands\\updateproduct\\updateproductcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\features\\products\\commands\\createproduct\\createproductcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\features\\products\\commands\\createproduct\\createproductcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\features\\products\\commands\\createproduct\\createproductcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\features\\products\\commands\\createproduct\\createproductcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\dtos\\product\\createproductwithimagesdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\dtos\\product\\createproductwithimagesdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\dtos\\product\\updateproductdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\dtos\\product\\updateproductdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\dtos\\product\\productdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\dtos\\product\\productdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\infrastructure\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\infrastructure\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\domain\\interfaces\\iproductrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\domain\\interfaces\\iproductrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\domain\\entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\domain\\entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\infrastructure\\repositories\\sliderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\infrastructure\\repositories\\sliderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\controllers\\sliderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\controllers\\sliderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\controllers\\fileuploadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\controllers\\fileuploadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\infrastructure\\services\\fileuploadservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\infrastructure\\services\\fileuploadservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\features\\sliders\\commands\\deleteslider\\deleteslidercommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\features\\sliders\\commands\\deleteslider\\deleteslidercommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\validators\\updateslidercommandvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\validators\\updateslidercommandvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\validators\\createslidercommandvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\validators\\createslidercommandvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\features\\sliders\\queries\\getslidersbytype\\getslidersbytypequeryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\features\\sliders\\queries\\getslidersbytype\\getslidersbytypequeryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\features\\sliders\\queries\\getslidersbytype\\getslidersbytypequery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\features\\sliders\\queries\\getslidersbytype\\getslidersbytypequery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\features\\sliders\\queries\\getallsliders\\getallslidersqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\features\\sliders\\queries\\getallsliders\\getallslidersqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\features\\sliders\\queries\\getallsliders\\getallslidersquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\features\\sliders\\queries\\getallsliders\\getallslidersquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\features\\sliders\\queries\\getslider\\getsliderqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\features\\sliders\\queries\\getslider\\getsliderqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\features\\sliders\\queries\\getslider\\getsliderquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\features\\sliders\\queries\\getslider\\getsliderquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\features\\sliders\\commands\\updateslider\\updateslidercommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\features\\sliders\\commands\\updateslider\\updateslidercommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\features\\sliders\\commands\\updateslider\\updateslidercommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\features\\sliders\\commands\\updateslider\\updateslidercommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\features\\sliders\\commands\\createslider\\createslidercommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\features\\sliders\\commands\\createslider\\createslidercommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|c:\\users\\oguzhan\\source\\repos\\baseapi\\baseapi\\application\\features\\sliders\\commands\\createslider\\createslidercommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DACBD118-0AE8-4B40-83E2-2731929099F0}|BaseApi\\BaseApi.csproj|solutionrelative:baseapi\\application\\features\\sliders\\commands\\createslider\\createslidercommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{6324226f-61b6-4f28-92ee-18d4b5fe1e48}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProductsController.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Controllers\\ProductsController.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Controllers\\ProductsController.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Controllers\\ProductsController.cs",
+              "RelativeToolTip": "BaseApi\\Controllers\\ProductsController.cs",
+              "ViewState": "AgIAAHsAAAAAAAAAAAAowIEAAABdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:03:59.234Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "GetProductsByCategoryQuery.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Products\\Queries\\GetProductsByCategory\\GetProductsByCategoryQuery.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Features\\Products\\Queries\\GetProductsByCategory\\GetProductsByCategoryQuery.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Products\\Queries\\GetProductsByCategory\\GetProductsByCategoryQuery.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Features\\Products\\Queries\\GetProductsByCategory\\GetProductsByCategoryQuery.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:03:36.457Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CreateProductDto.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\DTOs\\Product\\CreateProductDto.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\DTOs\\Product\\CreateProductDto.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\DTOs\\Product\\CreateProductDto.cs",
+              "RelativeToolTip": "BaseApi\\Application\\DTOs\\Product\\CreateProductDto.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAA5wBUAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:01:58.784Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ProductRepository.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Infrastructure\\Repositories\\ProductRepository.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Infrastructure\\Repositories\\ProductRepository.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Infrastructure\\Repositories\\ProductRepository.cs",
+              "RelativeToolTip": "BaseApi\\Infrastructure\\Repositories\\ProductRepository.cs",
+              "ViewState": "AgIAAGsAAAAAAAAAAAAywGwAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T07:53:39.49Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CreateProductCommandValidator.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Validators\\CreateProductCommandValidator.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Validators\\CreateProductCommandValidator.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Validators\\CreateProductCommandValidator.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Validators\\CreateProductCommandValidator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:03:47.044Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UpdateProductCommandValidator.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Validators\\UpdateProductCommandValidator.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Validators\\UpdateProductCommandValidator.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Validators\\UpdateProductCommandValidator.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Validators\\UpdateProductCommandValidator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:03:53.455Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "GetAllProductsQuery.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Products\\Queries\\GetAllProducts\\GetAllProductsQuery.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Features\\Products\\Queries\\GetAllProducts\\GetAllProductsQuery.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Products\\Queries\\GetAllProducts\\GetAllProductsQuery.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Features\\Products\\Queries\\GetAllProducts\\GetAllProductsQuery.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:03:25.084Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "GetProductQuery.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Products\\Queries\\GetProduct\\GetProductQuery.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Features\\Products\\Queries\\GetProduct\\GetProductQuery.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Products\\Queries\\GetProduct\\GetProductQuery.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Features\\Products\\Queries\\GetProduct\\GetProductQuery.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:03:10.366Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "DeleteProductCommandHandler.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Products\\Commands\\DeleteProduct\\DeleteProductCommandHandler.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Features\\Products\\Commands\\DeleteProduct\\DeleteProductCommandHandler.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Products\\Commands\\DeleteProduct\\DeleteProductCommandHandler.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Features\\Products\\Commands\\DeleteProduct\\DeleteProductCommandHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:03:05.202Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DeleteProductCommand.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Products\\Commands\\DeleteProduct\\DeleteProductCommand.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Features\\Products\\Commands\\DeleteProduct\\DeleteProductCommand.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Products\\Commands\\DeleteProduct\\DeleteProductCommand.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Features\\Products\\Commands\\DeleteProduct\\DeleteProductCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:03:01.308Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "UpdateProductCommand.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Products\\Commands\\UpdateProduct\\UpdateProductCommand.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Features\\Products\\Commands\\UpdateProduct\\UpdateProductCommand.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Products\\Commands\\UpdateProduct\\UpdateProductCommand.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Features\\Products\\Commands\\UpdateProduct\\UpdateProductCommand.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAA4wCEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:02:43.14Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CreateProductCommandHandler.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Products\\Commands\\CreateProduct\\CreateProductCommandHandler.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Features\\Products\\Commands\\CreateProduct\\CreateProductCommandHandler.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Products\\Commands\\CreateProduct\\CreateProductCommandHandler.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Features\\Products\\Commands\\CreateProduct\\CreateProductCommandHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAG0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:02:36.286Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "CreateProductCommand.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Products\\Commands\\CreateProduct\\CreateProductCommand.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Features\\Products\\Commands\\CreateProduct\\CreateProductCommand.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Products\\Commands\\CreateProduct\\CreateProductCommand.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Features\\Products\\Commands\\CreateProduct\\CreateProductCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:02:28.841Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CreateProductWithImagesDto.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\DTOs\\Product\\CreateProductWithImagesDto.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\DTOs\\Product\\CreateProductWithImagesDto.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\DTOs\\Product\\CreateProductWithImagesDto.cs",
+              "RelativeToolTip": "BaseApi\\Application\\DTOs\\Product\\CreateProductWithImagesDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:02:09.436Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "UpdateProductDto.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\DTOs\\Product\\UpdateProductDto.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\DTOs\\Product\\UpdateProductDto.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\DTOs\\Product\\UpdateProductDto.cs",
+              "RelativeToolTip": "BaseApi\\Application\\DTOs\\Product\\UpdateProductDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:02:04.155Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ProductDto.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\DTOs\\Product\\ProductDto.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\DTOs\\Product\\ProductDto.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\DTOs\\Product\\ProductDto.cs",
+              "RelativeToolTip": "BaseApi\\Application\\DTOs\\Product\\ProductDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:00:59.71Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Infrastructure\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Infrastructure\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Infrastructure\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "BaseApi\\Infrastructure\\Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T07:54:41.216Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "IProductRepository.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Domain\\Interfaces\\IProductRepository.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Domain\\Interfaces\\IProductRepository.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Domain\\Interfaces\\IProductRepository.cs",
+              "RelativeToolTip": "BaseApi\\Domain\\Interfaces\\IProductRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T07:53:13.501Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Product.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Domain\\Entities\\Product.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Domain\\Entities\\Product.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Domain\\Entities\\Product.cs",
+              "RelativeToolTip": "BaseApi\\Domain\\Entities\\Product.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAPMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T07:52:46.868Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "SliderRepository.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Infrastructure\\Repositories\\SliderRepository.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Infrastructure\\Repositories\\SliderRepository.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Infrastructure\\Repositories\\SliderRepository.cs",
+              "RelativeToolTip": "BaseApi\\Infrastructure\\Repositories\\SliderRepository.cs",
+              "ViewState": "AgIAAGMAAAAAAAAAAAAywGQAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-26T14:32:58.827Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "FileUploadService.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Infrastructure\\Services\\FileUploadService.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Infrastructure\\Services\\FileUploadService.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Infrastructure\\Services\\FileUploadService.cs",
+              "RelativeToolTip": "BaseApi\\Infrastructure\\Services\\FileUploadService.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAADwvygAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-25T14:51:31.453Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "SlidersController.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Controllers\\SlidersController.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Controllers\\SlidersController.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Controllers\\SlidersController.cs",
+              "RelativeToolTip": "BaseApi\\Controllers\\SlidersController.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAowGAAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-25T13:33:10.826Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "FileUploadController.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Controllers\\FileUploadController.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Controllers\\FileUploadController.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Controllers\\FileUploadController.cs",
+              "RelativeToolTip": "BaseApi\\Controllers\\FileUploadController.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAADwvykAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-25T14:51:17.687Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "DeleteSliderCommand.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Sliders\\Commands\\DeleteSlider\\DeleteSliderCommand.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Features\\Sliders\\Commands\\DeleteSlider\\DeleteSliderCommand.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Sliders\\Commands\\DeleteSlider\\DeleteSliderCommand.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Features\\Sliders\\Commands\\DeleteSlider\\DeleteSliderCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-25T14:46:04.562Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "UpdateSliderCommandValidator.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Validators\\UpdateSliderCommandValidator.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Validators\\UpdateSliderCommandValidator.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Validators\\UpdateSliderCommandValidator.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Validators\\UpdateSliderCommandValidator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-25T13:32:02.727Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "CreateSliderCommandValidator.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Validators\\CreateSliderCommandValidator.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Validators\\CreateSliderCommandValidator.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Validators\\CreateSliderCommandValidator.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Validators\\CreateSliderCommandValidator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-25T13:31:57.62Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "GetSlidersByTypeQueryHandler.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Sliders\\Queries\\GetSlidersByType\\GetSlidersByTypeQueryHandler.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Features\\Sliders\\Queries\\GetSlidersByType\\GetSlidersByTypeQueryHandler.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Sliders\\Queries\\GetSlidersByType\\GetSlidersByTypeQueryHandler.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Features\\Sliders\\Queries\\GetSlidersByType\\GetSlidersByTypeQueryHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-25T13:31:52.231Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "GetSlidersByTypeQuery.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Sliders\\Queries\\GetSlidersByType\\GetSlidersByTypeQuery.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Features\\Sliders\\Queries\\GetSlidersByType\\GetSlidersByTypeQuery.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Sliders\\Queries\\GetSlidersByType\\GetSlidersByTypeQuery.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Features\\Sliders\\Queries\\GetSlidersByType\\GetSlidersByTypeQuery.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-25T13:31:47.968Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "GetAllSlidersQueryHandler.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Sliders\\Queries\\GetAllSliders\\GetAllSlidersQueryHandler.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Features\\Sliders\\Queries\\GetAllSliders\\GetAllSlidersQueryHandler.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Sliders\\Queries\\GetAllSliders\\GetAllSlidersQueryHandler.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Features\\Sliders\\Queries\\GetAllSliders\\GetAllSlidersQueryHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-25T13:31:42.499Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "GetAllSlidersQuery.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Sliders\\Queries\\GetAllSliders\\GetAllSlidersQuery.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Features\\Sliders\\Queries\\GetAllSliders\\GetAllSlidersQuery.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Sliders\\Queries\\GetAllSliders\\GetAllSlidersQuery.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Features\\Sliders\\Queries\\GetAllSliders\\GetAllSlidersQuery.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-25T13:31:37.773Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "GetSliderQueryHandler.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Sliders\\Queries\\GetSlider\\GetSliderQueryHandler.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Features\\Sliders\\Queries\\GetSlider\\GetSliderQueryHandler.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Sliders\\Queries\\GetSlider\\GetSliderQueryHandler.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Features\\Sliders\\Queries\\GetSlider\\GetSliderQueryHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-25T13:31:32.076Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "GetSliderQuery.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Sliders\\Queries\\GetSlider\\GetSliderQuery.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Features\\Sliders\\Queries\\GetSlider\\GetSliderQuery.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Sliders\\Queries\\GetSlider\\GetSliderQuery.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Features\\Sliders\\Queries\\GetSlider\\GetSliderQuery.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-25T13:31:26.257Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "UpdateSliderCommandHandler.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Sliders\\Commands\\UpdateSlider\\UpdateSliderCommandHandler.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Features\\Sliders\\Commands\\UpdateSlider\\UpdateSliderCommandHandler.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Sliders\\Commands\\UpdateSlider\\UpdateSliderCommandHandler.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Features\\Sliders\\Commands\\UpdateSlider\\UpdateSliderCommandHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-25T13:30:07.547Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "UpdateSliderCommand.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Sliders\\Commands\\UpdateSlider\\UpdateSliderCommand.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Features\\Sliders\\Commands\\UpdateSlider\\UpdateSliderCommand.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Sliders\\Commands\\UpdateSlider\\UpdateSliderCommand.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Features\\Sliders\\Commands\\UpdateSlider\\UpdateSliderCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-25T13:29:30.085Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "CreateSliderCommandHandler.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Sliders\\Commands\\CreateSlider\\CreateSliderCommandHandler.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Features\\Sliders\\Commands\\CreateSlider\\CreateSliderCommandHandler.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Sliders\\Commands\\CreateSlider\\CreateSliderCommandHandler.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Features\\Sliders\\Commands\\CreateSlider\\CreateSliderCommandHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-25T13:28:48.858Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "CreateSliderCommand.cs",
+              "DocumentMoniker": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Sliders\\Commands\\CreateSlider\\CreateSliderCommand.cs",
+              "RelativeDocumentMoniker": "BaseApi\\Application\\Features\\Sliders\\Commands\\CreateSlider\\CreateSliderCommand.cs",
+              "ToolTip": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\Application\\Features\\Sliders\\Commands\\CreateSlider\\CreateSliderCommand.cs",
+              "RelativeToolTip": "BaseApi\\Application\\Features\\Sliders\\Commands\\CreateSlider\\CreateSliderCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-25T13:28:05.718Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 1867,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 793,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

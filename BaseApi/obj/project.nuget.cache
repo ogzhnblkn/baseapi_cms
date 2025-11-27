@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "UwqohJfhPvI=",
+  "dgSpecHash": "gN/pyc24DS8=",
   "success": true,
-  "projectFilePath": "C:\\Users\\oguzhan\\source\\repos\\BaseApi\\BaseApi\\BaseApi.csproj",
+  "projectFilePath": "C:\\Users\\oguzhan\\source\\repos\\ogzhnblkn\\baseapi_cms\\BaseApi\\BaseApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\oguzhan\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\oguzhan\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
