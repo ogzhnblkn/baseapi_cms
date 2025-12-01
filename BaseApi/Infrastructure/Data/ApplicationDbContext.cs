@@ -14,6 +14,7 @@ namespace BaseApi.Infrastructure.Data
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Page> Pages { get; set; }
+        public DbSet<SocialMediaLink> SocialMediaLinks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -186,6 +187,34 @@ namespace BaseApi.Infrastructure.Data
                 entity.Property(e => e.Template).HasConversion<int>();
                 entity.Property(e => e.Status).HasConversion<int>();
                 entity.Property(e => e.Visibility).HasConversion<int>();
+            });
+
+            // SocialMediaLink Configuration
+            modelBuilder.Entity<SocialMediaLink>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.Url).IsRequired().HasMaxLength(500);
+                entity.Property(e => e.Icon).HasMaxLength(50);
+                entity.Property(e => e.ImageUrl).HasMaxLength(1000);
+                entity.Property(e => e.Description).HasMaxLength(500);
+                entity.Property(e => e.ColorCode).HasMaxLength(7);
+
+                // Indexes
+
+                entity.HasIndex(e => e.IsActive);
+
+                // User relationships
+                entity.HasOne(e => e.Creator)
+                      .WithMany()
+                      .HasForeignKey(e => e.CreatedBy)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(e => e.Updater)
+                      .WithMany()
+                      .HasForeignKey(e => e.UpdatedBy)
+                      .OnDelete(DeleteBehavior.Restrict);
+
             });
         }
     }

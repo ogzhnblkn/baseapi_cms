@@ -38,6 +38,7 @@ builder.Services.AddScoped<IMenuRepository, MenuRepository>();
 builder.Services.AddScoped<ISliderRepository, SliderRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IPageRepository, PageRepository>();
+builder.Services.AddScoped<ISocialMediaLinkRepository, SocialMediaLinkRepository>();
 
 // Add JWT Service
 builder.Services.AddScoped<IJwtService, JwtService>();

@@ -1,8 +1,8 @@
-using BaseApi.Application.Features.Pages.Commands.CreatePage;
-using BaseApi.Application.Features.Pages.Commands.DeletePage;
-using BaseApi.Application.Features.Pages.Commands.UpdatePage;
-using BaseApi.Application.Features.Pages.Queries.GetPageById;
-using BaseApi.Application.Features.Pages.Queries.GetPages;
+using BaseApi.Application.Features.SocialMediaLinks.Commands.CreateSocialMediaLink;
+using BaseApi.Application.Features.SocialMediaLinks.Commands.DeleteSocialMediaLink;
+using BaseApi.Application.Features.SocialMediaLinks.Commands.UpdateSocialMediaLink;
+using BaseApi.Application.Features.SocialMediaLinks.Queries.GetSocialMediaLinkById;
+using BaseApi.Application.Features.SocialMediaLinks.Queries.GetSocialMediaLinks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,26 +12,26 @@ namespace BaseApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PagesController : ControllerBase
+    public class SocialMediaLinksController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public PagesController(IMediator mediator)
+        public SocialMediaLinksController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPages([FromQuery] GetPagesQuery query)
+        public async Task<IActionResult> GetSocialMediaLinks([FromQuery] GetSocialMediaLinksQuery query)
         {
             var result = await _mediator.Send(query);
             return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPageById(int id)
+        public async Task<IActionResult> GetSocialMediaLinkById(int id)
         {
-            var result = await _mediator.Send(new GetPageByIdQuery { Id = id });
+            var result = await _mediator.Send(new GetSocialMediaLinkByIdQuery { Id = id });
 
             if (result.Success)
             {
@@ -41,9 +41,16 @@ namespace BaseApi.Controllers
             return NotFound(result);
         }
 
+        [HttpGet("active")]
+        public async Task<IActionResult> GetActiveLinks()
+        {
+            var result = await _mediator.Send(new GetSocialMediaLinksQuery { ActiveOnly = true });
+            return Ok(result);
+        }
+
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CreatePage([FromBody] CreatePageCommand command)
+        public async Task<IActionResult> CreateSocialMediaLink([FromBody] CreateSocialMediaLinkCommand command)
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
 
@@ -56,7 +63,7 @@ namespace BaseApi.Controllers
 
             if (result.Success)
             {
-                return CreatedAtAction(nameof(GetPageById), new { id = result.Id }, result);
+                return CreatedAtAction(nameof(GetSocialMediaLinkById), new { id = result.Id }, result);
             }
 
             return BadRequest(result);
@@ -64,7 +71,7 @@ namespace BaseApi.Controllers
 
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> UpdatePage(int id, [FromBody] UpdatePageCommand command)
+        public async Task<IActionResult> UpdateSocialMediaLink(int id, [FromBody] UpdateSocialMediaLinkCommand command)
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
 
@@ -86,9 +93,9 @@ namespace BaseApi.Controllers
 
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<IActionResult> DeletePage(int id)
+        public async Task<IActionResult> DeleteSocialMediaLink(int id)
         {
-            var result = await _mediator.Send(new DeletePageCommand { Id = id });
+            var result = await _mediator.Send(new DeleteSocialMediaLinkCommand { Id = id });
 
             if (result.Success)
             {
