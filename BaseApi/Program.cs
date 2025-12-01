@@ -36,7 +36,8 @@ builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IMenuRepository, MenuRepository>();
 builder.Services.AddScoped<ISliderRepository, SliderRepository>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>(); // Bu satýrý ekleyin
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IPageRepository, PageRepository>();
 
 // Add JWT Service
 builder.Services.AddScoped<IJwtService, JwtService>();

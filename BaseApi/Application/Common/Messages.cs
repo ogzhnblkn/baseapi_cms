@@ -78,5 +78,16 @@ namespace BaseApi.Application.Common
             public const string Forbidden = "Access forbidden";
             public const string Conflict = "Resource conflict";
         }
+        public static class Page
+        {
+            public const string Created = "Sayfa baþarýyla oluþturuldu";
+            public const string Updated = "Sayfa baþarýyla güncellendi";
+            public const string Deleted = "Sayfa baþarýyla silindi";
+            public const string Retrieved = "Sayfa baþarýyla getirildi";
+            public const string ListRetrieved = "Sayfalar baþarýyla getirildi";
+            public const string NotFound = "Sayfa bulunamadý";
+            public const string SlugExists = "Bu slug zaten kullanýmda";
+            public const string ValidationFailed = "Sayfa doðrulama hatasý";
+        }
     }
 }

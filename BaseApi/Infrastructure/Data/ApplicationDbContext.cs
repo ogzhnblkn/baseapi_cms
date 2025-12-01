@@ -13,6 +13,7 @@ namespace BaseApi.Infrastructure.Data
         public DbSet<Menu> Menus { get; set; }
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Page> Pages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -146,6 +147,45 @@ namespace BaseApi.Infrastructure.Data
 
                 entity.Property(e => e.DiscountPrice)
                       .HasColumnType("decimal(18,2)");
+            });
+
+            // Page Configuration
+            modelBuilder.Entity<Page>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.HasIndex(e => e.Slug).IsUnique();
+                entity.Property(e => e.Title).IsRequired().HasMaxLength(200);
+                entity.Property(e => e.Slug).IsRequired().HasMaxLength(300);
+                entity.Property(e => e.Summary).HasMaxLength(1000);
+                entity.Property(e => e.FeaturedImageUrl).HasMaxLength(1000);
+                entity.Property(e => e.MetaTitle).HasMaxLength(200);
+                entity.Property(e => e.MetaDescription).HasMaxLength(500);
+                entity.Property(e => e.Keywords).HasMaxLength(500);
+                entity.Property(e => e.CanonicalUrl).HasMaxLength(500);
+
+                // Indexes for performance
+                entity.HasIndex(e => e.Template);
+                entity.HasIndex(e => e.Status);
+                entity.HasIndex(e => e.IsHomePage);
+                entity.HasIndex(e => e.Visibility);
+                entity.HasIndex(e => new { e.Status, e.IsHomePage });
+                entity.HasIndex(e => new { e.Status, e.Template });
+
+                // User relationships
+                entity.HasOne(e => e.Creator)
+                      .WithMany()
+                      .HasForeignKey(e => e.CreatedBy)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(e => e.Updater)
+                      .WithMany()
+                      .HasForeignKey(e => e.UpdatedBy)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                // Enum conversions
+                entity.Property(e => e.Template).HasConversion<int>();
+                entity.Property(e => e.Status).HasConversion<int>();
+                entity.Property(e => e.Visibility).HasConversion<int>();
             });
         }
     }
