@@ -15,6 +15,7 @@ namespace BaseApi.Infrastructure.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Page> Pages { get; set; }
         public DbSet<SocialMediaLink> SocialMediaLinks { get; set; }
+        public DbSet<TokenBlacklist> TokenBlacklists { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -215,6 +216,23 @@ namespace BaseApi.Infrastructure.Data
                       .HasForeignKey(e => e.UpdatedBy)
                       .OnDelete(DeleteBehavior.Restrict);
 
+            });
+
+            // TokenBlacklist Configuration
+            modelBuilder.Entity<TokenBlacklist>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Token).IsRequired().HasMaxLength(500);
+                entity.HasIndex(e => e.Token);
+                entity.HasIndex(e => e.UserId);
+                entity.HasIndex(e => e.ExpiresAt);
+                entity.HasIndex(e => new { e.Token, e.ExpiresAt });
+
+                // User relationship
+                entity.HasOne(e => e.User)
+                      .WithMany()
+                      .HasForeignKey(e => e.UserId)
+                      .OnDelete(DeleteBehavior.Cascade);
             });
         }
     }

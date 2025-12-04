@@ -3,6 +3,9 @@ using BaseApi.Application.Interfaces;
 using BaseApi.Domain.Entities;
 using BaseApi.Domain.Interfaces;
 using BaseApi.Infrastructure.Data;
+using BaseApi.Infrastructure.Extensions;
+using BaseApi.Infrastructure.Filters;
+using BaseApi.Infrastructure.Middleware;
 using BaseApi.Infrastructure.Repositories;
 using BaseApi.Infrastructure.Services;
 using FluentValidation.AspNetCore;
@@ -39,6 +42,7 @@ builder.Services.AddScoped<ISliderRepository, SliderRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IPageRepository, PageRepository>();
 builder.Services.AddScoped<ISocialMediaLinkRepository, SocialMediaLinkRepository>();
+builder.Services.AddScoped<ITokenBlacklistRepository, TokenBlacklistRepository>();
 
 // Add JWT Service
 builder.Services.AddScoped<IJwtService, JwtService>();
@@ -64,7 +68,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddControllers();
+// Add Global XSS Protection
+builder.Services.AddGlobalXssProtection();
+
+// Add controllers with global XSS filter
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<GlobalXssProtectionFilter>();
+}).AddGlobalXssFilter();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -168,8 +180,23 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Add Global XSS Protection Middleware (before authentication)
+app.UseGlobalXssProtection();
+
+// Add security headers
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Add("X-XSS-Protection", "1; mode=block");
+    context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+    context.Response.Headers.Add("X-Frame-Options", "DENY");
+    context.Response.Headers.Add("Referrer-Policy", "strict-origin-when-cross-origin");
+
+    await next();
+});
+
 app.UseHttpsRedirection();
 app.UseAuthentication();
+app.UseMiddleware<TokenValidationMiddleware>();
 app.UseAuthorization();
 app.MapControllers();
 

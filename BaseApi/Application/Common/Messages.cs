@@ -64,10 +64,14 @@ namespace BaseApi.Application.Common
         public static class Auth
         {
             public const string LoginSuccess = "Login successful";
+            public const string LogoutSuccess = "Logout successful";
             public const string RegisterSuccess = "Registration successful";
             public const string InvalidCredentials = "Invalid username or password";
             public const string UserExists = "User already exists";
             public const string Unauthorized = "User not authenticated";
+            public const string TokenExpired = "Token has expired";
+            public const string TokenInvalid = "Invalid token";
+            public const string TokenBlacklisted = "Token has been invalidated";
         }
 
         public static class File

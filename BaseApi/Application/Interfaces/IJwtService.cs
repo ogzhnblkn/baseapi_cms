@@ -8,5 +8,7 @@ namespace BaseApi.Application.Interfaces
         string GenerateRefreshToken();
         bool ValidateToken(string token);
         int GetUserIdFromToken(string token);
+        DateTime GetTokenExpirationDate(string token);
+        string GetTokenFromAuthorizationHeader(string authorizationHeader);
     }
 }
