@@ -14,6 +14,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.11" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
+    <PackageReference Include="Serilog" Version="4.3.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
@@ -23,6 +27,8 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\uploads\sliders\" />
-  </ItemGroup>
+    <Folder Include="logs\" />
+   </ItemGroup>
+ 
 
 </Project>

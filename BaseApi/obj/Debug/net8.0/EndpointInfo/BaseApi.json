@@ -144,6 +144,30 @@
         }
       }
     },
+    "/": {
+      "get": {
+        "tags": [
+          "BaseApi"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/test": {
+      "get": {
+        "tags": [
+          "BaseApi"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/FileUpload/image": {
       "post": {
         "tags": [
