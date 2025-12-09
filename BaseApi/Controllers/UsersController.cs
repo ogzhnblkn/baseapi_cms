@@ -6,11 +6,12 @@ using BaseApi.Application.Features.Users.Commands.UpdateUser;
 using BaseApi.Application.Features.Users.Queries.GetAllUsers;
 using BaseApi.Application.Features.Users.Queries.GetUser;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BaseApi.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase

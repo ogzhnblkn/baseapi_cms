@@ -116,6 +116,18 @@ try
                 ClockSkew = TimeSpan.Zero
             };
         });
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy(name: "BaseApi",
+            policy =>
+            {
+
+                policy.WithOrigins("http://localhost:5173", "https://*.knacomputing.com")
+                .SetIsOriginAllowedToAllowWildcardSubdomains()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+            });
+    });
 
     // Add Global XSS Protection
     builder.Services.AddGlobalXssProtection();
