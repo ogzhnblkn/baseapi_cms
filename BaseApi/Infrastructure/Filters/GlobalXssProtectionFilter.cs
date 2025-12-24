@@ -24,23 +24,22 @@ namespace BaseApi.Infrastructure.Filters
                     var argumentValue = argument.Value;
                     var argumentType = argumentValue.GetType();
 
-                    // Skip primitive types and some system types
                     if (ShouldSkipSanitization(argumentType))
                         continue;
 
                     try
                     {
-                        // Check for XSS before sanitization for logging
-                        if (ContainsXssInObject(argumentValue))
+                        // Sadece gerçek tehlikeli content'i logla
+                        if (ContainsDangerousXss(argumentValue))
                         {
                             var userAgent = context.HttpContext.Request.Headers.UserAgent.ToString();
                             var ipAddress = context.HttpContext.Connection.RemoteIpAddress?.ToString();
 
-                            _logger.LogWarning("XSS attempt detected from IP: {IP}, User-Agent: {UserAgent}, Controller: {Controller}, Action: {Action}",
-                                ipAddress, userAgent, context.Controller.GetType().Name, context.ActionDescriptor.DisplayName);
+                            _logger.LogWarning("Dangerous XSS attempt detected from IP: {IP}, Controller: {Controller}, Action: {Action}",
+                                ipAddress, context.Controller.GetType().Name, context.ActionDescriptor.DisplayName);
                         }
 
-                        // Sanitize the object
+                        // Hafif sanitization yap - encoding deðil!
                         var sanitizedObject = _xssProtectionService.SanitizeObject(argumentValue);
                         context.ActionArguments[argument.Key] = sanitizedObject;
                     }
@@ -54,14 +53,12 @@ namespace BaseApi.Infrastructure.Filters
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            // Optionally sanitize response data
+            // Response sanitization if needed
         }
 
         private bool ShouldSkipSanitization(Type type)
         {
-            // Skip primitive types, DateTime, enums, etc.
             return type.IsPrimitive ||
-                   type == typeof(string) ||
                    type == typeof(DateTime) ||
                    type == typeof(DateTime?) ||
                    type == typeof(decimal) ||
@@ -71,7 +68,7 @@ namespace BaseApi.Infrastructure.Filters
                    type.Namespace?.StartsWith("Microsoft") == true;
         }
 
-        private bool ContainsXssInObject(object obj)
+        private bool ContainsDangerousXss(object obj)
         {
             if (obj == null) return false;
 
@@ -82,9 +79,23 @@ namespace BaseApi.Infrastructure.Filters
             foreach (var property in properties)
             {
                 var value = property.GetValue(obj) as string;
-                if (!string.IsNullOrEmpty(value) && _xssProtectionService.ContainsXss(value))
+                if (!string.IsNullOrEmpty(value))
                 {
-                    return true;
+                    // Sadece gerçekten tehlikeli script pattern'leri kontrol et
+                    var dangerousPatterns = new[]
+                    {
+                        "<script",
+                        "javascript:",
+                        "onclick=",
+                        "onload=",
+                        "alert(",
+                        "eval("
+                    };
+
+                    if (dangerousPatterns.Any(pattern => value.Contains(pattern, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        return true;
+                    }
                 }
             }
 

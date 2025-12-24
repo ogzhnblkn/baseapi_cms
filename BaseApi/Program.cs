@@ -118,14 +118,20 @@ try
         });
     builder.Services.AddCors(options =>
     {
-        options.AddPolicy(name: "BaseApi",
+        options.AddPolicy(name: "BaseApiPolicy",
             policy =>
             {
-
-                policy.WithOrigins("http://localhost:5173", "https://*.knacomputing.com")
+                // Development ve Production origin'leri ekleyin
+                policy.WithOrigins(
+                    "http://localhost:5173",      // Development
+                    "https://localhost:5173",     // Development HTTPS
+                    "https://cmsapi.online",      // Production
+                    "http://cmsapi.online"        // Production HTTP (gerekiyorsa)
+                )
                 .SetIsOriginAllowedToAllowWildcardSubdomains()
                 .AllowAnyHeader()
-                .AllowAnyMethod();
+                .AllowAnyMethod()
+                .AllowCredentials(); // JWT token kullanýyorsanýz bu gerekli olabilir
             });
     });
 
@@ -136,7 +142,14 @@ try
     builder.Services.AddControllers(options =>
     {
         options.Filters.Add<GlobalXssProtectionFilter>();
-    }).AddGlobalXssFilter();
+    })
+    .AddJsonOptions(options =>
+    {
+        // JSON serialization ayarlarý
+        options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
+        options.JsonSerializerOptions.WriteIndented = true;
+    })
+    .AddGlobalXssFilter();
 
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(c =>
@@ -308,6 +321,7 @@ try
 
     // Add Global XSS Protection Middleware (before authentication)
     app.UseGlobalXssProtection();
+    app.UseCors("BaseApiPolicy");
 
     // Add security headers
     app.Use(async (context, next) =>

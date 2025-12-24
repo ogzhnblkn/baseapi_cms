@@ -7,7 +7,11 @@ namespace BaseApi.Application.DTOs.Product
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Slug { get; set; } = string.Empty;
+        [AllowHtmlContent]
+
         public string? ShortDescription { get; set; }
+        [AllowHtmlContent]
+
         public string? Description { get; set; }
         public string? ProductCode { get; set; }
         public ProductCategory Category { get; set; }

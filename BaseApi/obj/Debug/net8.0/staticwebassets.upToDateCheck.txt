@@ -4,3 +4,4 @@ wwwroot\uploads\sliders\Mermer (Marble)_20251127_121007_39ebb57f.jpg
 wwwroot\uploads\sliders\Resim1_20251127_101758_a8d6e9ca.png
 wwwroot\uploads\sliders\Resim22_20251127_101758_921728e5.png
 wwwroot\uploads\sliders\service2_20251126_144736_27b5b7fc.png
+wwwroot\uploads\sliders\Mermer (Marble)_20251127_121007_39ebb57f_20251209_084752_a63da7fd.jpg

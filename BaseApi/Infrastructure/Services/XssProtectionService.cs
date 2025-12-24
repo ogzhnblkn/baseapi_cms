@@ -1,7 +1,6 @@
 using BaseApi.Application.Common.Security;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using System.Web;
 
 namespace BaseApi.Infrastructure.Services
 {
@@ -21,8 +20,6 @@ namespace BaseApi.Infrastructure.Services
             @"data\s*:",
             @"on\w+\s*=",
             @"expression\s*\(",
-            @"url\s*\(",
-            @"@import",
             @"alert\s*\(",
             @"confirm\s*\(",
             @"prompt\s*\(",
@@ -53,13 +50,13 @@ namespace BaseApi.Infrastructure.Services
 
             var sanitized = input.Trim();
 
-            // HTML encode
-            sanitized = HttpUtility.HtmlEncode(sanitized);
-
-            // Remove XSS patterns
+            // XSS pattern'leri temizle - HTML encode yapma!
             sanitized = _combinedXssRegex.Replace(sanitized, string.Empty);
 
-            // Remove any remaining dangerous characters
+            // Sadece tehlikeli script attribute'larýný temizle
+            sanitized = RemoveDangerousAttributes(sanitized);
+
+            // Dangerous karakterleri temizle ama Türkçe karakterleri koru
             sanitized = RemoveDangerousCharacters(sanitized);
 
             return sanitized;
@@ -80,7 +77,19 @@ namespace BaseApi.Infrastructure.Services
                     var value = property.GetValue(obj) as string;
                     if (!string.IsNullOrEmpty(value))
                     {
-                        property.SetValue(obj, SanitizeInput(value));
+                        // AllowHtmlContent attribute'ý var mý kontrol et
+                        var hasAllowHtml = property.GetCustomAttribute<AllowHtmlContentAttribute>() != null;
+
+                        if (hasAllowHtml)
+                        {
+                            // HTML içeren alanlar için hafif sanitization
+                            property.SetValue(obj, SanitizeHtmlContent(value));
+                        }
+                        else
+                        {
+                            // Normal alanlar için XSS temizleme ama encoding yok
+                            property.SetValue(obj, SanitizeInput(value));
+                        }
                     }
                 }
             }
@@ -101,7 +110,58 @@ namespace BaseApi.Infrastructure.Services
             if (string.IsNullOrWhiteSpace(output))
                 return string.Empty;
 
-            return HttpUtility.HtmlEncode(output);
+            // Output encoding kaldýr - frontend'de gerekirse yapýlýr
+            return output;
+        }
+
+        private string SanitizeHtmlContent(string htmlContent)
+        {
+            if (string.IsNullOrWhiteSpace(htmlContent))
+                return string.Empty;
+
+            // Sadece tehlikeli script'leri temizle, HTML tag'lari koru
+            var sanitized = htmlContent;
+
+            // Tehlikeli pattern'leri temizle
+            var dangerousPatterns = new List<string>
+            {
+                @"<script[\s\S]*?>[\s\S]*?</script>",
+                @"javascript\s*:",
+                @"on\w+\s*=[\s\S]*?(?=[>\s])",
+                @"alert\s*\(",
+                @"eval\s*\(",
+                @"setTimeout\s*\(",
+                @"setInterval\s*\("
+            };
+
+            foreach (var pattern in dangerousPatterns)
+            {
+                sanitized = Regex.Replace(sanitized, pattern, string.Empty, RegexOptions.IgnoreCase);
+            }
+
+            return sanitized;
+        }
+
+
+        private string RemoveDangerousAttributes(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+                return input;
+
+            // Sadece tehlikeli onclick, onload gibi event handler'larý kaldýr
+            var dangerousAttributes = new List<string>
+            {
+                @"on\w+\s*=[\s\S]*?(?=[>\s])",
+                @"javascript\s*:",
+                @"vbscript\s*:"
+            };
+
+            foreach (var pattern in dangerousAttributes)
+            {
+                input = Regex.Replace(input, pattern, string.Empty, RegexOptions.IgnoreCase);
+            }
+
+            return input;
         }
 
         private string RemoveDangerousCharacters(string input)
@@ -109,10 +169,20 @@ namespace BaseApi.Infrastructure.Services
             if (string.IsNullOrEmpty(input))
                 return input;
 
-            // Remove null bytes and other dangerous control characters
+            // Sadece null byte ve control karakterleri kaldýr
+            // Türkçe karakterleri (ç, ð, ý, ö, þ, ü) koru
             input = Regex.Replace(input, @"[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]", string.Empty);
 
             return input;
         }
+
+
+
+
     }
+
+
 }
+
+
+
