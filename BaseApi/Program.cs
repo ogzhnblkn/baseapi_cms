@@ -94,10 +94,15 @@ try
     builder.Services.AddScoped<IPageRepository, PageRepository>();
     builder.Services.AddScoped<ISocialMediaLinkRepository, SocialMediaLinkRepository>();
     builder.Services.AddScoped<ITokenBlacklistRepository, TokenBlacklistRepository>();
+    builder.Services.AddScoped<IContactRepository, ContactRepository>();
 
     // Add Services
     builder.Services.AddScoped<IJwtService, JwtService>();
     builder.Services.AddScoped<IFileUploadService, FileUploadService>();
+    builder.Services.AddScoped<ISpamFilterService, SpamFilterService>();
+
+    // Background service ekleyin:
+    builder.Services.AddHostedService<CleanupService>();
 
     // Add JWT Authentication
     var jwtKey = builder.Configuration["Jwt:Key"] ?? "MySecretKeyForJwtTokenGeneration2024";
@@ -116,22 +121,22 @@ try
                 ClockSkew = TimeSpan.Zero
             };
         });
+
     builder.Services.AddCors(options =>
     {
         options.AddPolicy(name: "BaseApiPolicy",
             policy =>
             {
-                // Development ve Production origin'leri ekleyin
                 policy.WithOrigins(
                     "http://localhost:5173",      // Development
                     "https://localhost:5173",     // Development HTTPS
                     "https://cmsapi.online",      // Production
                     "http://cmsapi.online"        // Production HTTP (gerekiyorsa)
                 )
-                .SetIsOriginAllowedToAllowWildcardSubdomains()
                 .AllowAnyHeader()
                 .AllowAnyMethod()
-                .AllowCredentials(); // JWT token kullanýyorsanýz bu gerekli olabilir
+                .AllowCredentials()
+                .WithExposedHeaders("Content-Disposition"); // File download için
             });
     });
 
@@ -265,12 +270,32 @@ try
                         throw new Exception("Cannot connect to database");
                     }
 
+                    // **AUTO-MIGRATION EKLE - Hem local hem production için**
+                    Log.Information("Checking for pending migrations...");
+                    var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
+
+                    if (pendingMigrations.Any())
+                    {
+                        Log.Information("Found {Count} pending migrations: {Migrations}",
+                            pendingMigrations.Count(),
+                            string.Join(", ", pendingMigrations));
+
+                        Log.Information("Applying migrations...");
+                        await context.Database.MigrateAsync();
+                        Log.Information("All migrations applied successfully");
+                    }
+                    else
+                    {
+                        Log.Information("Database is up to date - no pending migrations");
+                    }
+
                     Log.Information("Database connection verified");
 
                     // Seed default admin user if not exists
                     var adminExists = await userRepository.GetByUsernameAsync("admin");
-                    if (adminExists == null)
+                    if (adminExists?.Success != true || adminExists.Data == null)
                     {
+                        Log.Information("Creating default admin user...");
                         var defaultAdmin = new User
                         {
                             Username = "admin",
@@ -282,8 +307,15 @@ try
                             CreatedAt = DateTime.UtcNow
                         };
 
-                        await userRepository.CreateAsync(defaultAdmin);
-                        Log.Information("Default admin user created");
+                        var createResult = await userRepository.CreateAsync(defaultAdmin);
+                        if (createResult.Success)
+                        {
+                            Log.Information("Default admin user created successfully");
+                        }
+                        else
+                        {
+                            Log.Warning("Failed to create admin user: {Message}", createResult.Message);
+                        }
                     }
                     else
                     {
@@ -294,30 +326,28 @@ try
                 }
                 catch (Exception ex) when (i < maxRetries - 1)
                 {
-                    Log.Warning(ex, "Database attempt {Attempt} failed, retrying...", i + 1);
+                    Log.Warning(ex, "Database attempt {Attempt} failed, retrying in {Delay} seconds...", i + 1, delay.TotalSeconds);
                     await Task.Delay(delay);
                 }
             }
 
-            Log.Information("Database operations completed");
+            Log.Information("Database operations completed successfully");
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Database operations failed");
+            Log.Error(ex, "Database operations failed after all retry attempts");
         }
     });
 
-    //if (app.Environment.IsDevelopment())
-    //{
-    //    app.UseSwagger();
-    //    app.UseSwaggerUI();
-    //}
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Base API v1");
         c.RoutePrefix = "swagger";
     });
+
+    // ** CONTACT RATE LIMITING MIDDLEWARE EKLEYÝN - CORS'dan ÖNCE **
+    app.UseMiddleware<ContactRateLimitingMiddleware>();
 
     // Add Global XSS Protection Middleware (before authentication)
     app.UseGlobalXssProtection();
@@ -343,6 +373,33 @@ try
             context.Request.Scheme);
         await next();
         Log.Information("Response: {StatusCode}", context.Response.StatusCode);
+    });
+
+    // HTTP Methods Middleware
+    app.Use(async (context, next) =>
+    {
+        // OPTIONS preflight requests için
+        if (context.Request.Method == "OPTIONS")
+        {
+            context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            context.Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+            context.Response.Headers.Add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+            context.Response.Headers.Add("Access-Control-Max-Age", "86400");
+            context.Response.StatusCode = 200;
+            return;
+        }
+
+        // POST/PUT/DELETE istekleri için detaylý log
+        if (new[] { "POST", "PUT", "DELETE", "PATCH" }.Contains(context.Request.Method))
+        {
+            Log.Information("HTTP {Method} request to {Path} from {IP} - ContentType: {ContentType}",
+                context.Request.Method,
+                context.Request.Path,
+                context.Connection.RemoteIpAddress,
+                context.Request.ContentType);
+        }
+
+        await next();
     });
 
     // HTTPS Redirect - Only in development or when explicitly enabled
@@ -378,3 +435,4 @@ finally
 {
     Log.CloseAndFlush();
 }
+

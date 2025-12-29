@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -7,6 +7,23 @@
     <UserSecretsId>aspnet-BaseApi-075f8f39-8580-4e0b-babe-2742d43ba286</UserSecretsId>
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20251121073819_first.cs" />
+    <Compile Remove="Migrations\20251121073819_first.Designer.cs" />
+    <Compile Remove="Migrations\20251125083408_Menus.cs" />
+    <Compile Remove="Migrations\20251125083408_Menus.Designer.cs" />
+    <Compile Remove="Migrations\20251126143410_Sliders.cs" />
+    <Compile Remove="Migrations\20251126143410_Sliders.Designer.cs" />
+    <Compile Remove="Migrations\20251127080631_Products.cs" />
+    <Compile Remove="Migrations\20251127080631_Products.Designer.cs" />
+    <Compile Remove="Migrations\20251201084936_pagesAdd.cs" />
+    <Compile Remove="Migrations\20251201084936_pagesAdd.Designer.cs" />
+    <Compile Remove="Migrations\20251201140945_socialMedia.cs" />
+    <Compile Remove="Migrations\20251201140945_socialMedia.Designer.cs" />
+    <Compile Remove="Migrations\20251204143156_token.cs" />
+    <Compile Remove="Migrations\20251204143156_token.Designer.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />

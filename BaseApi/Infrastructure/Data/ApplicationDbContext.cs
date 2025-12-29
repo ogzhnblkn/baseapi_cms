@@ -14,6 +14,7 @@ namespace BaseApi.Infrastructure.Data
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Page> Pages { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
         public DbSet<SocialMediaLink> SocialMediaLinks { get; set; }
         public DbSet<TokenBlacklist> TokenBlacklists { get; set; }
 
@@ -234,6 +235,27 @@ namespace BaseApi.Infrastructure.Data
                       .HasForeignKey(e => e.UserId)
                       .OnDelete(DeleteBehavior.Cascade);
             });
+
+            modelBuilder.Entity<Contact>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.NameSurname).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.PhoneNumber).HasMaxLength(20);
+                entity.Property(e => e.City).IsRequired().HasMaxLength(50);
+                entity.Property(e => e.Subject).IsRequired().HasMaxLength(200);
+                entity.Property(e => e.Message).IsRequired().HasMaxLength(1000);
+
+
+                entity.HasIndex(e => e.NameSurname);
+                entity.HasIndex(e => e.PhoneNumber);
+                entity.HasIndex(e => e.Subject);
+                entity.HasIndex(e => e.City);
+                entity.HasIndex(e => e.Email);
+                entity.HasIndex(e => e.PhoneNumber);
+
+            });
+
         }
     }
 }
