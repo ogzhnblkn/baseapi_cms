@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Base API",
-    "version": "v1"
+    "title": "BaseApi",
+    "version": "1.0"
   },
   "paths": {
     "/api/Auth/login": {
@@ -136,30 +136,6 @@
       "post": {
         "tags": [
           "Auth"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/": {
-      "get": {
-        "tags": [
-          "BaseApi"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/test": {
-      "get": {
-        "tags": [
-          "BaseApi"
         ],
         "responses": {
           "200": {
@@ -3770,19 +3746,6 @@
         },
         "additionalProperties": false
       }
-    },
-    "securitySchemes": {
-      "Bearer": {
-        "type": "apiKey",
-        "description": "JWT Authorization header using the Bearer scheme. Enter 'Bearer' [space] and then your token in the text input below.",
-        "name": "Authorization",
-        "in": "header"
-      }
     }
-  },
-  "security": [
-    {
-      "Bearer": [ ]
-    }
-  ]
+  }
 }
