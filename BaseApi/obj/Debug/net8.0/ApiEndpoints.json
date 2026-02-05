@@ -1009,6 +1009,22 @@
   },
   {
     "ContainingType": "BaseApi.Controllers.SlidersController",
+    "Method": "DeleteSlider",
+    "RelativePath": "api/Sliders/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BaseApi.Controllers.SlidersController",
     "Method": "UpdateSliderWithImage",
     "RelativePath": "api/Sliders/{id}/with-image",
     "HttpMethod": "PUT",

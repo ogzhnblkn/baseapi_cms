@@ -50,7 +50,8 @@ namespace BaseApi.Application.Features.Pages.Queries.GetPages
                 Order = p.Order,
                 PublishedAt = p.PublishedAt,
                 CreatedAt = p.CreatedAt,
-                CreatedBy = p.Creator?.Username ?? "Sistem"
+                CreatedBy = p.Creator?.Username ?? "Sistem",
+                Content = p.Content
             }).ToList();
 
             return new GetPagesResponse

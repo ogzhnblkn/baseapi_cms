@@ -1,5 +1,6 @@
 using BaseApi.Application.DTOs.Slider;
 using BaseApi.Application.Features.Sliders.Commands.CreateSlider;
+using BaseApi.Application.Features.Sliders.Commands.DeleteSlider;
 using BaseApi.Application.Features.Sliders.Commands.UpdateSlider;
 using BaseApi.Application.Features.Sliders.Queries.GetAllSliders;
 using BaseApi.Application.Features.Sliders.Queries.GetSlider;
@@ -284,6 +285,23 @@ namespace BaseApi.Controllers
             }
         }
 
-        // ... diðer standart CRUD methodlarý
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteSlider(int id)
+        {
+            try
+            {
+                var command = new DeleteSliderCommand { Id = id };
+                var result = await _mediator.Send(command);
+
+                if (!result)
+                    return NotFound(new { message = $"Slider with ID {id} not found" });
+
+                return Ok(new { message = "Slider deleted successfully" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
     }
 }

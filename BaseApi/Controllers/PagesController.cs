@@ -22,6 +22,8 @@ namespace BaseApi.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
+
         public async Task<IActionResult> GetPages([FromQuery] GetPagesQuery query)
         {
             var result = await _mediator.Send(query);
