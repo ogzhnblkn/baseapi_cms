@@ -131,7 +131,11 @@ try
                     "http://localhost:5173",      // Development
                     "https://localhost:5173",     // Development HTTPS
                     "https://cmsapi.online",      // Production
-                    "http://cmsapi.online"        // Production HTTP (gerekiyorsa)
+                    "http://cmsapi.online",                    // Production HTTP (gerekiyorsa)
+                    "https://localhost:3000",
+                    "http://localhost:3000",
+                    "https://belezza-home-panel.vercel.app",
+                    "https://belezza-home.vercel.app"
                 )
                 .AllowAnyHeader()
                 .AllowAnyMethod()
