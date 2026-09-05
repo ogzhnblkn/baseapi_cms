@@ -382,18 +382,7 @@ try
     // HTTP Methods Middleware
     app.Use(async (context, next) =>
     {
-        // OPTIONS preflight requests için
-        if (context.Request.Method == "OPTIONS")
-        {
-            context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
-            context.Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
-            context.Response.Headers.Add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-            context.Response.Headers.Add("Access-Control-Max-Age", "86400");
-            context.Response.StatusCode = 200;
-            return;
-        }
-
-        // POST/PUT/DELETE istekleri için detaylý log
+        // POST/PUT/DELETE istekleri iï¿½in detaylï¿½ log
         if (new[] { "POST", "PUT", "DELETE", "PATCH" }.Contains(context.Request.Method))
         {
             Log.Information("HTTP {Method} request to {Path} from {IP} - ContentType: {ContentType}",
