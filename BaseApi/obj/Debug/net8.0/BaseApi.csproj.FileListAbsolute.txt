@@ -310,7 +310,6 @@ C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\BaseApi\obj\Debug\net8.0\sta
 C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\BaseApi\obj\Debug\net8.0\staticwebassets.build.json.cache
 C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\BaseApi\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\BaseApi\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\BaseApi\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\BaseApi\obj\Debug\net8.0\BaseApi.csproj.Up2Date
 C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\BaseApi\obj\Debug\net8.0\BaseApi.dll
 C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\BaseApi\obj\Debug\net8.0\refint\BaseApi.dll
@@ -339,3 +338,13 @@ C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\BaseApi\bin\Debug\net8.0\Sys
 C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\BaseApi\bin\Debug\net8.0\System.Text.Encodings.Web.dll
 C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\BaseApi\bin\Debug\net8.0\System.Text.Json.dll
 C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\BaseApi\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\BaseApi\obj\Debug\net8.0\swae.build.ex.cache
+C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\artifacts\build-test\web.config
+C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\artifacts\build-test\appsettings.Development.json
+C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\artifacts\build-test\appsettings.json
+C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\artifacts\build-test\BaseApi.staticwebassets.runtime.json
+C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\artifacts\build-test\BaseApi.staticwebassets.endpoints.json
+C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\artifacts\build-test\BaseApi.deps.json
+C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\artifacts\build-test\BaseApi.runtimeconfig.json
+C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\artifacts\build-test\BaseApi.dll
+C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\artifacts\build-test\BaseApi.pdb

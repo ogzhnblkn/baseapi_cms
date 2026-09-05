@@ -22,7 +22,17 @@ namespace BaseApi.Infrastructure.Middleware
                 _logger.LogError(ex, "Unhandled exception occurred");
 
                 context.Response.StatusCode = 500;
-                await context.Response.WriteAsync("Internal Server Error - Check logs");
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsJsonAsync(new
+                {
+                    success = false,
+                    message = "Beklenmeyen bir hata olustu.",
+                    detail = context.RequestServices
+                        .GetRequiredService<IWebHostEnvironment>()
+                        .IsDevelopment()
+                            ? ex.Message
+                            : null
+                });
             }
         }
     }

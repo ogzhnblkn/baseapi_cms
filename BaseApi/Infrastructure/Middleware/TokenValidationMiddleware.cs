@@ -24,14 +24,37 @@ namespace BaseApi.Infrastructure.Middleware
 
                 if (!string.IsNullOrEmpty(token))
                 {
-                    // Check if token is blacklisted
-                    if (await tokenBlacklistRepository.IsTokenBlacklistedAsync(token))
+                    bool isBlacklisted;
+                    try
+                    {
+                        isBlacklisted = await tokenBlacklistRepository.IsTokenBlacklistedAsync(token);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Token blacklist check failed");
+
+                        context.Response.StatusCode = StatusCodes.Status503ServiceUnavailable;
+                        context.Response.ContentType = "application/json";
+                        await context.Response.WriteAsJsonAsync(new
+                        {
+                            success = false,
+                            message = "Token dogrulamasi tamamlanamadi. Lutfen daha sonra tekrar deneyin."
+                        });
+                        return;
+                    }
+
+                    if (isBlacklisted)
                     {
                         _logger.LogWarning("Attempt to use blacklisted token from IP: {IP}",
                             context.Connection.RemoteIpAddress?.ToString());
 
-                        context.Response.StatusCode = 401;
-                        await context.Response.WriteAsync("Token has been invalidated");
+                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                        context.Response.ContentType = "application/json";
+                        await context.Response.WriteAsJsonAsync(new
+                        {
+                            success = false,
+                            message = "Token gecersiz kilinmis."
+                        });
                         return;
                     }
                 }

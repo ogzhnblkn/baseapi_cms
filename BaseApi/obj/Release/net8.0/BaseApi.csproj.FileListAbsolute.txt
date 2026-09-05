@@ -180,3 +180,4 @@ C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\BaseApi\bin\Release\net8.0\S
 C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\BaseApi\bin\Release\net8.0\System.Text.Encodings.Web.dll
 C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\BaseApi\bin\Release\net8.0\System.Text.Json.dll
 C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\BaseApi\bin\Release\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+C:\Users\oguzhan\source\repos\ogzhnblkn\baseapi_cms\BaseApi\obj\Release\net8.0\swae.build.ex.cache

@@ -140,7 +140,7 @@ try
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials()
-                .WithExposedHeaders("Content-Disposition"); // File download için
+                .WithExposedHeaders("Content-Disposition"); // File download iï¿½in
             });
     });
 
@@ -154,7 +154,7 @@ try
     })
     .AddJsonOptions(options =>
     {
-        // JSON serialization ayarlarý
+        // JSON serialization ayarlarï¿½
         options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
         options.JsonSerializerOptions.WriteIndented = true;
     })
@@ -195,6 +195,8 @@ try
     var app = builder.Build();
 
     Log.Information("Configuring middleware pipeline...");
+
+    app.UseMiddleware<SimpleExceptionMiddleware>();
 
     // Add test endpoints first
     app.MapGet("/", () =>
@@ -274,7 +276,7 @@ try
                         throw new Exception("Cannot connect to database");
                     }
 
-                    // **AUTO-MIGRATION EKLE - Hem local hem production için**
+                    // **AUTO-MIGRATION EKLE - Hem local hem production iï¿½in**
                     Log.Information("Checking for pending migrations...");
                     var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
 
@@ -350,7 +352,7 @@ try
         c.RoutePrefix = "swagger";
     });
 
-    // ** CONTACT RATE LIMITING MIDDLEWARE EKLEYÝN - CORS'dan ÖNCE **
+    // ** CONTACT RATE LIMITING MIDDLEWARE EKLEYï¿½N - CORS'dan ï¿½NCE **
     app.UseMiddleware<ContactRateLimitingMiddleware>();
 
     // Add Global XSS Protection Middleware (before authentication)
@@ -360,10 +362,10 @@ try
     // Add security headers
     app.Use(async (context, next) =>
     {
-        context.Response.Headers.Add("X-XSS-Protection", "1; mode=block");
-        context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
-        context.Response.Headers.Add("X-Frame-Options", "DENY");
-        context.Response.Headers.Add("Referrer-Policy", "strict-origin-when-cross-origin");
+        context.Response.Headers["X-XSS-Protection"] = "1; mode=block";
+        context.Response.Headers["X-Content-Type-Options"] = "nosniff";
+        context.Response.Headers["X-Frame-Options"] = "DENY";
+        context.Response.Headers["Referrer-Policy"] = "strict-origin-when-cross-origin";
 
         await next();
     });

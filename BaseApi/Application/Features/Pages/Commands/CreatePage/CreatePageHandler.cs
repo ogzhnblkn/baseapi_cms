@@ -1,4 +1,5 @@
 using BaseApi.Application.Common;
+using BaseApi.Application.Features.Pages;
 using BaseApi.Domain.Entities;
 using BaseApi.Domain.Interfaces;
 using MediatR;
@@ -16,13 +17,38 @@ namespace BaseApi.Application.Features.Pages.Commands.CreatePage
 
         public async Task<CreatePageResponse> Handle(CreatePageCommand request, CancellationToken cancellationToken)
         {
-            // Slug kontrolü
+            var validationMessage = PageCommandValidation.Validate(
+                request.Title,
+                request.Slug,
+                request.Content,
+                request.Summary,
+                request.FeaturedImageUrl,
+                request.Template,
+                request.Status,
+                request.Visibility,
+                request.MetaTitle,
+                request.MetaDescription,
+                request.Keywords,
+                request.CanonicalUrl);
+
+            if (validationMessage != null)
+            {
+                return new CreatePageResponse
+                {
+                    Success = false,
+                    Message = validationMessage
+                };
+            }
+
+            request.Title = request.Title.Trim();
+            request.Slug = request.Slug.Trim();
+
             if (await _pageRepository.SlugExistsAsync(request.Slug))
             {
                 return new CreatePageResponse
                 {
                     Success = false,
-                    Message = "Bu slug zaten kullanýmda!"
+                    Message = Messages.Page.SlugExists
                 };
             }
 

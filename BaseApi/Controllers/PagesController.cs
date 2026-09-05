@@ -47,9 +47,7 @@ namespace BaseApi.Controllers
         [Authorize]
         public async Task<IActionResult> CreatePage([FromBody] CreatePageCommand command)
         {
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
-
-            if (userId == 0)
+            if (!TryGetUserId(out var userId))
                 return Unauthorized(new { message = "User not authenticated" });
 
             command.CreatedBy = userId;
@@ -68,9 +66,7 @@ namespace BaseApi.Controllers
         [Authorize]
         public async Task<IActionResult> UpdatePage(int id, [FromBody] UpdatePageCommand command)
         {
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
-
-            if (userId == 0)
+            if (!TryGetUserId(out var userId))
                 return Unauthorized(new { message = "User not authenticated" });
 
             command.Id = id;
@@ -98,6 +94,12 @@ namespace BaseApi.Controllers
             }
 
             return NotFound(result);
+        }
+
+        private bool TryGetUserId(out int userId)
+        {
+            var userIdValue = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            return int.TryParse(userIdValue, out userId) && userId > 0;
         }
     }
 }
